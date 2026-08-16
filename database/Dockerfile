@@ -1,0 +1,8 @@
+FROM mysql:8.0
+
+ENV MYSQL_DATABASE=recruitment_crm
+ENV MYSQL_USER=crm_user
+ENV MYSQL_PASSWORD=crm_password_123
+ENV MYSQL_ROOT_PASSWORD=root_password_123
+
+EXPOSE 3306
