@@ -1,0 +1,323 @@
+/* ==========================================================================
+   RESPONSIVE - Healthcare Recruitment CRM
+   Premium Enterprise SaaS Design System
+   ========================================================================== */
+
+/* ===== BREAKPOINT: TABLET (max-width: 1024px) ===== */
+@media (max-width: 1024px) {
+  /* Sidebar becomes a drawer (hidden for now, can be toggled via JS) */
+  .dashboard {
+    grid-template-columns: 220px 1fr;
+  }
+
+  .sidebar {
+    width: 220px;
+  }
+
+  /* Main content gets less padding */
+  .main {
+    padding: var(--space-5) var(--space-5) var(--space-10) var(--space-5);
+  }
+
+  /* KPI grids go 2 columns */
+  .grid-kpi,
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Content grid goes single column */
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Details modal grid */
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Landing features */
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Testimonials */
+  .testimonials-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Footer */
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* About */
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Topbar search */
+  .topbar-search {
+    max-width: 200px;
+  }
+
+  /* Topbar items wrap */
+  .topbar-right {
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  /* User pill hides name */
+  .user-meta {
+    display: none;
+  }
+}
+
+/* ===== BREAKPOINT: MOBILE LARGE (max-width: 768px) ===== */
+@media (max-width: 768px) {
+  /* Hide sidebar on mobile */
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  /* Main content full width */
+  .main {
+    grid-column: 1;
+    padding: var(--space-4);
+    height: auto;
+    min-height: 100vh;
+  }
+
+  /* Single-column KPIs */
+  .grid-kpi,
+  .kpi-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Form grids single column */
+  .form-grid-2,
+  .form-row,
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Topbar stacks */
+  .topbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-3);
+    padding: var(--space-3) 0;
+  }
+
+  .topbar-left {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-3);
+  }
+
+  .topbar-search {
+    max-width: 100%;
+  }
+
+  .topbar-right {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  /* Toolbars stack */
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .toolbar-left,
+  .toolbar-right {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .toolbar .input,
+  .toolbar .select {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  /* Landing features single col */
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Landing testimonials single col */
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Footer single column */
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  /* Hero section */
+  .hero {
+    padding: 40px 0 24px;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .hero-title {
+    font-size: 1.75rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Workflow */
+  .workflow-track {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .workflow-track::before {
+    display: none;
+  }
+
+  /* Contact split */
+  .contact-split {
+    grid-template-columns: 1fr;
+  }
+
+  /* Hide nav links */
+  .nav-links {
+    display: none;
+  }
+
+  /* Sections padding */
+  .features,
+  .workflow,
+  .about,
+  .testimonials,
+  .contact {
+    padding: 48px 0;
+  }
+
+  .section-title {
+    font-size: var(--text-2xl);
+  }
+
+  .section-header {
+    margin-bottom: 28px;
+  }
+
+  /* Container */
+  .container {
+    width: min(100% - 24px, var(--container-max));
+  }
+
+  /* Modal takes full width */
+  .modal {
+    max-width: calc(100vw - 24px);
+    margin: 12px;
+  }
+
+  .modal-lg,
+  .modal-xl {
+    max-width: calc(100vw - 24px);
+  }
+
+  /* Auth */
+  .auth-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-brand-panel {
+    display: none;
+  }
+
+  .auth-form-panel {
+    padding: 24px 16px;
+  }
+
+  .auth-form-container {
+    max-width: 100%;
+  }
+}
+
+/* ===== BREAKPOINT: SMALL MOBILE (max-width: 480px) ===== */
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 1.5rem;
+  }
+
+  .hero-description {
+    font-size: var(--text-sm);
+  }
+
+  .hero-panel-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-panel-stats {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .workflow-track {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-preview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .kpi .value {
+    font-size: var(--text-xl);
+  }
+
+  .kpi {
+    padding: var(--space-4);
+  }
+
+  .table th,
+  .table td {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+  .sidebar,
+  .topbar,
+  .nav,
+  .hero-glow,
+  .hero-glow-2 {
+    display: none !important;
+  }
+
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .main {
+    padding: 0;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+}

@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Recruiter Performance - Healthcare Recruitment CRM</title>
+  <meta name="description" content="Recruiter Performance Analytics" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/main.css" />
+  <style>
+    /* Inline helper styles for progress bars and leaderboard ranking */
+    .progress-bar-container {
+      width: 100%;
+      background-color: #f1f3f5;
+      border-radius: 4px;
+      height: 8px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+    .progress-bar-fill.success {
+      background: linear-gradient(90deg, #10b981, #059669);
+    }
+    .progress-bar-fill.warning {
+      background: linear-gradient(90deg, #f59e0b, #d97706);
+    }
+    .progress-bar-fill.primary {
+      background: linear-gradient(90deg, #3b82f6, #2563eb);
+    }
+    .rank-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    .rank-1 { background-color: #fef3c7; color: #d97706; border: 1px solid #fde68a; }
+    .rank-2 { background-color: #f3f4f6; color: #4b5563; border: 1px solid #e5e7eb; }
+    .rank-3 { background-color: #ffedd5; color: #c2410c; border: 1px solid #fed7aa; }
+    .rank-other { background-color: #f9fafb; color: #9ca3af; border: 1px solid #f3f4f6; }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <!-- SIDEBAR -->
+    <aside class="sidebar" aria-label="Sidebar">
+      <a class="brand" href="../index.html">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>HealthCRM</span>
+      </a>
+
+      <nav class="sidebar-nav" aria-label="Main navigation">
+        <a class="sidebar-nav-link" href="./dashboard.html">Dashboard</a>
+
+        <div class="sidebar-nav-item">
+          <button class="sidebar-nav-trigger" id="recruitment-trigger" aria-expanded="false" aria-controls="recruitment-children">
+            <span class="nav-label">Recruitment</span>
+            <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="sidebar-nav-children" id="recruitment-children" role="list">
+            <a href="./hospitals.html" role="listitem">Hospitals</a>
+            <a href="./jobs.html" role="listitem">Jobs</a>
+            <a href="./applicants.html" role="listitem">Applicants</a>
+            <a href="./matching.html" role="listitem">Matching</a>
+            <a href="./pool.html" role="listitem">Pool Database</a>
+            <a href="./pipeline.html" role="listitem">Pipeline</a>
+            <a href="./interviews.html" role="listitem">Interviews</a>
+            <a href="./referrals.html" role="listitem">Referrals</a>
+          </div>
+        </div>
+
+        <div class="sidebar-nav-item">
+          <button class="sidebar-nav-trigger" id="finance-trigger" aria-expanded="false" aria-controls="finance-children">
+            <span class="nav-label">Finance</span>
+            <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="sidebar-nav-children" id="finance-children" role="list">
+            <a href="./invoices.html" role="listitem">Invoices</a>
+            <a href="./salary.html" role="listitem">Salary</a>
+            <a href="./reports.html" role="listitem">Reports</a>
+            <a href="./projections.html" role="listitem">Projections</a>
+          </div>
+        </div>
+
+        <div class="sidebar-nav-item">
+          <button class="sidebar-nav-trigger" id="hr-trigger" aria-expanded="false" aria-controls="hr-children">
+            <span class="nav-label">HR</span>
+            <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="sidebar-nav-children" id="hr-children" role="list">
+            <a href="./employees.html" role="listitem">Employees</a>
+            <a href="./attendance.html" role="listitem">Attendance</a>
+            <a href="./leaves.html" role="listitem">Leaves</a>
+            <a href="./tasks.html" role="listitem">Tasks</a>
+            <a href="./performance.html" role="listitem" class="active">Performance</a>
+          </div>
+        </div>
+
+        <div class="sidebar-nav-item">
+          <button class="sidebar-nav-trigger" id="admin-trigger" aria-expanded="false" aria-controls="admin-children">
+            <span class="nav-label">Admin</span>
+            <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="sidebar-nav-children" id="admin-children" role="list">
+            <a href="./settings.html" role="listitem">Settings</a>
+            <a href="./calendar.html" role="listitem">Calendar</a>
+          </div>
+        </div>
+
+        <a class="sidebar-nav-link" href="javascript:void(0)" id="logoutBtn" data-logout>Logout</a>
+        <div class="card" style="margin-top:auto;padding:16px" aria-label="Account">
+  <div class="small-muted">Signed in as</div>
+  <div style="font-weight:800;font-size:15px;margin-top:4px" id="userName">Loading...</div>
+  <div style="margin-top:6px">
+  <span class="badge" style="font-size:11px" id="userRole">-</span>
+  </div>
+  </div>
+  </nav>
+  </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+      <div class="topbar" role="banner">
+        <div class="topbar-left">
+          <div>
+            <div class="topbar-title">Recruiter Performance</div>
+            <div class="topbar-subtitle">Monitor goals, achievements, and leaderboard placements.</div>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <button class="btn btn-primary admin-only" id="openTargetsBtn" style="display: none;">Configure Target</button>
+          <span class="pill">Role: <span id="topRole">-</span></span>
+          <div class="user-pill">
+            <span class="avatar" id="avatarSpan">CRM</span>
+            <div class="user-meta">
+              <div class="user-name" id="userNameSpan">CRM User</div>
+              <div class="user-role" id="userRoleSpan">Healthcare Recruitment</div>
+            </div>
+          </div>
+          <button class="btn btn-danger btn-sm" type="button" data-logout>Logout</button>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 12px; padding: 14px;">
+        <div class="toolbar">
+          <div class="toolbar-left">
+            <label for="filterMonth" class="label" style="margin-bottom:0; margin-right:8px; font-weight:700;">Select Month:</label>
+            <input id="filterMonth" class="input" type="month" style="width: 180px;" />
+          </div>
+          <div class="toolbar-right">
+            <span class="badge" id="statusBadge">Ready</span>
+            <button id="refreshBtn" class="btn btn-outline" type="button">Refresh</button>
+          </div>
+        </div>
+
+        <!-- Leaderboard section -->
+        <h3 style="margin-top:20px; font-weight:800; font-size:18px;">🏆 Recruiter Leaderboard</h3>
+        <div style="overflow:auto; margin-top: 10px;">
+          <table class="table" aria-label="Leaderboard table">
+            <thead>
+              <tr>
+                <th style="width: 70px;">Rank</th>
+                <th>Recruiter</th>
+                <th>Submissions (Sourced)</th>
+                <th>Selections (Hired)</th>
+                <th>Revenue Generated</th>
+                <th>Candidates Added</th>
+                <th>Tasks Completed</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboardBody">
+              <tr><td colspan="7" class="small-muted">Loading leaderboard data...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Admin Set Targets Modal -->
+      <div id="targetsModalOverlay" class="modal-overlay" aria-hidden="true">
+        <div class="modal modal-md" role="dialog" aria-modal="true" aria-label="Targets Configuration Form">
+          <form id="targetsForm">
+            <div class="modal-header">
+              <div>
+                <div class="modal-title">Configure Recruiter Target</div>
+                <div class="small-muted" id="targetsModalSubtitle">Set performance targets for the selected month</div>
+              </div>
+              <button type="button" class="icon-btn" id="closeTargetsModalBtn" aria-label="Close">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div style="display: grid; grid-template-columns: 1fr; gap: 14px;">
+                <div class="form-group">
+                  <label class="label" for="targetRecruiterSelect">Select Recruiter <span style="color:var(--danger)">*</span></label>
+                  <select id="targetRecruiterSelect" class="select" required>
+                    <option value="">Choose Employee...</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="label" for="targetMonthInput">Month <span style="color:var(--danger)">*</span></label>
+                  <input class="input" type="month" id="targetMonthInput" required />
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                  <div class="form-group">
+                    <label class="label" for="targetSubmissionsInput">Submissions Target <span style="color:var(--danger)">*</span></label>
+                    <input class="input" type="number" min="0" id="targetSubmissionsInput" required />
+                  </div>
+
+                  <div class="form-group">
+                    <label class="label" for="targetSelectionsInput">Selections Target <span style="color:var(--danger)">*</span></label>
+                    <input class="input" type="number" min="0" id="targetSelectionsInput" required />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="label" for="targetRevenueInput">Revenue Target (INR) <span style="color:var(--danger)">*</span></label>
+                  <input class="input" type="number" step="0.01" min="0" id="targetRevenueInput" required />
+                </div>
+
+                <div class="form-group">
+                  <label class="label" for="targetNotesInput">Notes / Context</label>
+                  <textarea class="input" id="targetNotesInput" rows="2" placeholder="e.g. Focus on super-specialty ICU job matches"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline" id="cancelTargetsBtn">Cancel</button>
+              <button type="submit" class="btn btn-primary">Save Targets</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="../assets/js/api.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/sidebar.js"></script>
+  <script src="../assets/js/performance.js"></script>
+</body>
+</html>

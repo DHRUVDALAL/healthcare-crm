@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Candidate Profile - Healthcare Recruitment CRM</title>
+  <meta name="description" content="Candidate details and documents" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/main.css" />
+  <style>
+    .profile-layout {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 24px;
+      margin-top: 24px;
+    }
+    .profile-card {
+      background: var(--bg-card, #fff);
+      border: 1px solid var(--border, #e2e8f0);
+      border-radius: 12px;
+      padding: 24px;
+      position: sticky;
+      top: 24px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+    .profile-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .avatar-placeholder {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--primary, #3b82f6);
+      color: white;
+      font-size: 32px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+    }
+    .profile-name {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text, #1e293b);
+      margin-bottom: 4px;
+    }
+    .profile-role {
+      font-size: 14px;
+      color: var(--text-muted, #64748b);
+      font-weight: 600;
+    }
+    .profile-meta-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px dashed var(--border);
+    }
+    .profile-meta-item:last-child {
+      border-bottom: none;
+    }
+    .profile-meta-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .profile-meta-val {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .profile-tabs-wrapper {
+      background: var(--bg-card, #fff);
+      border: 1px solid var(--border, #e2e8f0);
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+    }
+    .profile-tabs-nav {
+      display: flex;
+      background: #f8fafc;
+      border-bottom: 1px solid var(--border);
+      padding: 0 16px;
+    }
+    .profile-tab-btn {
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      padding: 16px 20px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .profile-tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+    .profile-tab-content {
+      padding: 24px;
+      display: none;
+    }
+    .profile-tab-content.active {
+      display: block;
+    }
+    .grid-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .info-card {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .info-k {
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .info-v {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .timeline-log {
+      position: relative;
+      padding-left: 24px;
+      border-left: 2px solid var(--border);
+      margin-left: 12px;
+      margin-top: 16px;
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 24px;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -31px;
+      top: 4px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--primary);
+      border: 2px solid white;
+    }
+    .timeline-time {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .timeline-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .timeline-note {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-top: 4px;
+    }
+    .document-list {
+      margin-top: 16px;
+    }
+    .document-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+    .document-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .doc-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      background: #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 11px;
+    }
+    .doc-title {
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .doc-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <aside class="sidebar" aria-label="Sidebar">
+      <a class="brand" href="../index.html">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>HealthCRM</span>
+      </a>
+
+      <nav class="sidebar-nav" aria-label="Main navigation">
+        <a class="sidebar-nav-link" href="./dashboard.html">Dashboard</a>
+
+        <div class="sidebar-nav-item">
+          <button class="sidebar-nav-trigger" id="recruitment-trigger" aria-expanded="true" aria-controls="recruitment-children">
+            <span class="nav-label">Recruitment</span>
+            <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="sidebar-nav-children open" id="recruitment-children" role="list">
+            <a href="./hospitals.html" role="listitem">Hospitals</a>
+            <a href="./jobs.html" role="listitem">Jobs</a>
+            <a class="active" href="./applicants.html" role="listitem">Applicants</a>
+            <a href="./assignment.html" id="nav-assignment" style="display:none;" role="listitem">Assignment</a>
+            <a href="./matching.html" role="listitem">Matching</a>
+            <a href="./pool.html" role="listitem">Pool Database</a>
+            <a href="./pipeline.html" role="listitem">Pipeline</a>
+            <a href="./interviews.html" role="listitem">Interviews</a>
+            <a href="./referrals.html" role="listitem">Referrals</a>
+          </div>
+        </div>
+
+        <div class="sidebar-nav-item">
+          <button class="sidebar-nav-trigger" id="finance-trigger" aria-expanded="false" aria-controls="finance-children">
+            <span class="nav-label">Finance</span>
+            <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="sidebar-nav-children" id="finance-children" role="list">
+            <a href="./invoices.html" role="listitem">Invoices</a>
+            <a href="./salary.html" role="listitem">Salary</a>
+            <a href="./reports.html" role="listitem">Reports</a>
+            <a href="./projections.html" role="listitem">Projections</a>
+          </div>
+        </div>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <div class="topbar" role="banner">
+        <div class="topbar-left">
+          <div>
+            <div class="topbar-title">Candidate Executive Profile</div>
+            <div class="topbar-subtitle">View detailed candidate credentials, application timeline & documents.</div>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <button class="icon-btn" title="Notifications" aria-label="Notifications"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg></button>
+          <span class="pill">Role: <span id="topRole">-</span></span>
+          <div class="user-pill">
+            <span class="avatar">HC</span>
+            <div class="user-meta">
+              <div class="user-name" id="userName">Admin</div>
+              <div class="user-role" id="userRole">admin</div>
+            </div>
+          </div>
+          <button class="btn btn-danger btn-sm" type="button" id="logoutBtn" data-logout>Logout</button>
+        </div>
+      </div>
+
+      <main class="main-body">
+        <a href="./applicants.html" class="btn btn-outline btn-sm" style="margin-bottom: 20px; display: inline-flex; align-items: center; gap: 8px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Back to Candidates
+        </a>
+
+        <div class="profile-layout">
+          <!-- Left side card -->
+          <div class="profile-card">
+            <div class="profile-header">
+              <div class="avatar-placeholder" id="avatarName">C</div>
+              <h2 class="profile-name" id="candidateName">Loading...</h2>
+              <div class="profile-role" id="candidateDesignation">-</div>
+              <div style="margin-top: 12px;" id="statusPillContainer">
+                <span class="status">Loading...</span>
+              </div>
+            </div>
+
+            <div style="margin-top: 24px;">
+              <div class="profile-meta-item">
+                <div class="profile-meta-label">Priority</div>
+                <div class="profile-meta-val" id="metaPriority">-</div>
+              </div>
+              <div class="profile-meta-item">
+                <div class="profile-meta-label">Recruiter Owner</div>
+                <div class="profile-meta-val" id="metaRecruiter">-</div>
+              </div>
+              <div class="profile-meta-item">
+                <div class="profile-meta-label">Notice Period</div>
+                <div class="profile-meta-val" id="metaNotice">-</div>
+              </div>
+              <div class="profile-meta-item">
+                <div class="profile-meta-label">Experience</div>
+                <div class="profile-meta-val" id="metaExperience">-</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right side tabs details -->
+          <div class="profile-tabs-wrapper">
+            <div class="profile-tabs-nav" role="tablist">
+              <button class="profile-tab-btn active" role="tab" aria-selected="true" data-tab="personal">Personal Info</button>
+              <button class="profile-tab-btn" role="tab" aria-selected="false" data-tab="documents">Resume & Documents</button>
+              <button class="profile-tab-btn" role="tab" aria-selected="false" data-tab="timeline">Pipeline & Timeline</button>
+              <button class="profile-tab-btn" role="tab" aria-selected="false" data-tab="referrals">Referrals</button>
+              <button class="profile-tab-btn" role="tab" aria-selected="false" data-tab="notes">Notes & Remarks</button>
+            </div>
+
+            <!-- Tab: Personal -->
+            <div class="profile-tab-content active" id="tab-personal">
+              <h3 style="margin-top:0; margin-bottom: 20px; font-weight:800;">Candidate Details</h3>
+              <div class="grid-info">
+                <div class="info-card"><div class="info-k">Email Address</div><div class="info-v" id="infoEmail">-</div></div>
+                <div class="info-card"><div class="info-k">Phone Number</div><div class="info-v" id="infoPhone">-</div></div>
+                <div class="info-card"><div class="info-k">Date of Birth</div><div class="info-v" id="infoDob">-</div></div>
+                <div class="info-card"><div class="info-k">Gender</div><div class="info-v" id="infoGender">-</div></div>
+                <div class="info-card"><div class="info-k">Location</div><div class="info-v" id="infoLocation">-</div></div>
+                <div class="info-card"><div class="info-k">Qualification</div><div class="info-v" id="infoQual">-</div></div>
+                <div class="info-card"><div class="info-k">Current Salary</div><div class="info-v" id="infoCurrentSalary">-</div></div>
+                <div class="info-card"><div class="info-k">Expected Salary</div><div class="info-v" id="infoExpectedSalary">-</div></div>
+                <div class="info-card"><div class="info-k">Current Company</div><div class="info-v" id="infoCompany">-</div></div>
+                <div class="info-card"><div class="info-k">Preferred Hospital</div><div class="info-v" id="infoHospital">-</div></div>
+                <div class="info-card" style="grid-column: 1 / -1;"><div class="info-k">Technical Skills</div><div class="info-v" id="infoSkills">-</div></div>
+              </div>
+            </div>
+
+            <!-- Tab: Documents -->
+            <div class="profile-tab-content" id="tab-documents">
+              <h3 style="margin-top:0; margin-bottom: 12px; font-weight:800;">Original & Masked Resume</h3>
+              <div style="display: flex; gap: 12px; margin-bottom: 24px;">
+                <button class="btn btn-outline" id="btnViewResume">View Original Resume</button>
+                <button class="btn btn-outline" id="btnDownloadResume">Download Original Resume</button>
+                <button class="btn btn-primary" id="btnViewMasked" style="display:none;">View Masked Resume</button>
+              </div>
+
+              <h3 style="margin-bottom: 12px; font-weight:800;">Other Documents & Certifications</h3>
+              <div class="document-list" id="docList">
+                <div class="small-muted">No documents uploaded.</div>
+              </div>
+
+              <!-- Upload form -->
+              <div class="card" style="margin-top: 24px; padding: 20px; border-style: dashed; border-width: 2px;">
+                <h4 style="margin-top:0; font-weight:800;">Upload Candidate Documents</h4>
+                <form id="docUploadForm" enctype="multipart/form-data">
+                  <div class="form-group" style="margin-bottom: 12px;">
+                    <label for="documents" class="form-label">Select Files (PDF, Images, DOCX)</label>
+                    <input type="file" id="documents" name="documents" multiple class="form-control" />
+                  </div>
+                  <button type="submit" class="btn btn-primary">Upload Documents</button>
+                </form>
+              </div>
+            </div>
+
+            <!-- Tab: Timeline -->
+            <div class="profile-tab-content" id="tab-timeline">
+              <h3 style="margin-top:0; font-weight:800;">Chronological Workflow Events</h3>
+              <div class="timeline-log" id="timelineLog">
+                <div class="small-muted">No activities logged yet.</div>
+              </div>
+            </div>
+
+            <!-- Tab: Referrals -->
+            <div class="profile-tab-content" id="tab-referrals">
+              <h3 style="margin-top:0; font-weight:800;">Referrer Reward Tracking</h3>
+              <div id="referralEmpty" class="small-muted" style="display:block;">This candidate was not referred by anyone.</div>
+              <div id="referralContainer" style="display:none;">
+                <div class="grid-info" style="margin-bottom: 24px;">
+                  <div class="info-card"><div class="info-k">Referrer Name</div><div class="info-v" id="refName">-</div></div>
+                  <div class="info-card"><div class="info-k">Referrer Contact</div><div class="info-v" id="refContact">-</div></div>
+                  <div class="info-card"><div class="info-k">Reward Amount</div><div class="info-v" id="refRewardAmount">₹ 0.00</div></div>
+                  <div class="info-card"><div class="info-k">Approval Status</div><div class="info-v" id="refStatus">-</div></div>
+                </div>
+
+                <div class="card" style="padding: 20px;" id="adminRewardPnl">
+                  <h4 style="margin-top:0; font-weight:800;">Manage Reward Status</h4>
+                  <button class="btn btn-outline" id="btnApproveReferral" style="margin-right:8px;">Approve Reward</button>
+                  <button class="btn btn-primary" id="btnPayReferral">Mark as Paid</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab: Notes -->
+            <div class="profile-tab-content" id="tab-notes">
+              <h3 style="margin-top:0; font-weight:800;">Notes & Remarks</h3>
+              <div id="notesContainer" style="margin-bottom: 24px;">
+                <div class="small-muted">No notes recorded yet.</div>
+              </div>
+
+              <div class="card" style="padding: 20px;">
+                <h4 style="margin-top:0; font-weight:800;">Add Note</h4>
+                <form id="noteForm">
+                  <div class="form-group" style="margin-bottom: 12px;">
+                    <textarea id="noteContent" name="note" class="form-control" rows="3" placeholder="Enter remark or status note..." required></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Save Note</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../assets/js/api.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/sidebar.js"></script>
+  <script src="../assets/js/candidate-profile.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "recruitment-crm-root",
+  "version": "1.0.0",
+  "description": "Healthcare Recruitment ERP + CRM - Production Deployment Root",
+  "scripts": {
+    "postinstall": "cd backend && npm install",
+    "start": "cd backend && npm start",
+    "build": "cd backend && npm install"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

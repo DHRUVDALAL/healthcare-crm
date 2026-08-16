@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+<head>
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Applicants - Healthcare Recruitment CRM</title>
+ <meta name="description" content="Applicant management" />
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="../assets/css/main.css" />
+</head>
+<body>
+  <div class="dashboard">
+<aside class="sidebar" aria-label="Sidebar">
+  <a class="brand" href="../index.html">
+  <span class="brand-mark" aria-hidden="true"></span>
+  <span>HealthCRM</span>
+  </a>
+
+  <nav class="sidebar-nav" aria-label="Main navigation">
+  <a class="sidebar-nav-link" href="./dashboard.html">Dashboard</a>
+
+  <div class="sidebar-nav-item">
+    <button class="sidebar-nav-trigger" id="recruitment-trigger" aria-expanded="true" aria-controls="recruitment-children">
+      <span class="nav-label">Recruitment</span>
+      <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </button>
+    <div class="sidebar-nav-children open" id="recruitment-children" role="list">
+      <a href="./hospitals.html" role="listitem">Hospitals</a>
+      <a href="./jobs.html" role="listitem">Jobs</a>
+      <a class="active" href="./applicants.html" role="listitem">Applicants</a>
+      <a href="./matching.html" role="listitem">Matching</a>
+      <a href="./pool.html" role="listitem">Pool Database</a>
+      <a href="./pipeline.html" role="listitem">Pipeline</a>
+      <a href="./interviews.html" role="listitem">Interviews</a>
+      <a href="./referrals.html" role="listitem">Referrals</a>
+    </div>
+  </div>
+
+  <div class="sidebar-nav-item">
+    <button class="sidebar-nav-trigger" id="finance-trigger" aria-expanded="false" aria-controls="finance-children">
+      <span class="nav-label">Finance</span>
+      <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </button>
+    <div class="sidebar-nav-children" id="finance-children" role="list">
+      <a href="./invoices.html" role="listitem">Invoices</a>
+      <a href="./salary.html" role="listitem">Salary</a>
+      <a href="./reports.html" role="listitem">Reports</a>
+      <a href="./projections.html" role="listitem">Projections</a>
+    </div>
+  </div>
+
+  <div class="sidebar-nav-item">
+    <button class="sidebar-nav-trigger" id="hr-trigger" aria-expanded="false" aria-controls="hr-children">
+      <span class="nav-label">HR</span>
+      <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </button>
+    <div class="sidebar-nav-children" id="hr-children" role="list">
+      <a href="./employees.html" role="listitem">Employees</a>
+      <a href="./attendance.html" role="listitem">Attendance</a>
+      <a href="./leaves.html" role="listitem">Leaves</a>
+        <a href="./tasks.html" role="listitem">Tasks</a>
+        <a href="./performance.html" role="listitem">Performance</a>
+      </div>
+  </div>
+
+  <div class="sidebar-nav-item">
+    <button class="sidebar-nav-trigger" id="admin-trigger" aria-expanded="false" aria-controls="admin-children">
+      <span class="nav-label">Admin</span>
+      <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </button>
+    <div class="sidebar-nav-children" id="admin-children" role="list">
+      <a href="./settings.html" role="listitem">Settings</a>
+      <a href="./calendar.html" role="listitem">Calendar</a>
+    </div>
+  </div>
+
+  <a class="sidebar-nav-link" href="./settings.html">Settings</a>
+  <a class="sidebar-nav-link" href="javascript:void(0)" id="logoutBtn" data-logout>Logout</a>
+  </nav>
+
+  <div class="card" style="margin-top:auto;padding:16px" aria-label="Account">
+  <div class="small-muted">Signed in as</div>
+  <div style="font-weight:800;font-size:15px;margin-top:4px" id="userName">Loading...</div>
+  <div style="margin-top:6px">
+  <span class="badge" style="font-size:11px" id="userRole">-</span>
+  </div>
+  </div>
+  </aside>
+
+ <main class="main">
+ <div class="topbar" role="banner">
+ <div class="topbar-left">
+ <div>
+ <div class="topbar-title">Applicants</div>
+ <div class="topbar-subtitle">Add candidates, upload resumes, and track referrals.</div>
+ </div>
+ <div class="topbar-search search-input">
+ <span class="search-input-icon" aria-hidden="true">
+ <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+ <circle cx="11" cy="11" r="8"></circle>
+ <path d="M21 21l-4.3-4.3"></path>
+ </svg>
+ </span>
+ <input class="input" type="text" placeholder="Search CRM..." aria-label="Search" />
+ </div>
+ </div>
+ <div class="topbar-right">
+ <button class="icon-btn" title="Notifications" aria-label="Notifications"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg></button>
+ <button class="btn btn-outline btn-sm" type="button">Quick Add</button>
+ <span class="pill">Role: <span id="topRole">-</span></span>
+ <div class="user-pill">
+ <span class="avatar">HC</span>
+ <div class="user-meta">
+ <div class="user-name">CRM User</div>
+ <div class="user-role">Healthcare Recruitment</div>
+ </div>
+ </div>
+ <button class="btn btn-danger btn-sm" type="button" data-logout>Logout</button>
+ </div>
+ </div>
+
+ <div class="card" style="margin-top: 12px; padding: 14px;">
+ <div class="toolbar">
+ <div class="toolbar-left">
+ <input id="search" class="input" type="text" placeholder="Search by name, email, or phone" />
+ <input id="skills" class="input" type="text" placeholder="Skills contains" style="max-width: 220px;" />
+ <select id="jobFilter" class="select" aria-label="Applied job filter">
+ <option value="">All Jobs</option>
+ </select>
+ <input id="minExperience" class="input" type="number" min="0" step="0.5" placeholder="Min Exp" style="max-width: 120px;" />
+ <select id="statusFilter" class="select" aria-label="Status filter">
+ <option value="">All Status</option>
+ <option value="active">Active</option>
+ <option value="hold">Hold</option>
+ <option value="rejected">Rejected</option>
+ <option value="pool">Pool</option>
+ </select>
+ <select id="sourceFilter" class="select" aria-label="Source filter">
+ <option value="">All Sources</option>
+ <option value="call">Call</option>
+ <option value="whatsapp">WhatsApp</option>
+ <option value="portal">Portal</option>
+ <option value="social_media">Social Media</option>
+ <option value="referral">Referral</option>
+ </select>
+ </div>
+ <div class="toolbar-right">
+ <span class="badge">PDF resumes only</span>
+ <button id="addBtn" class="btn btn-primary" type="button">+ Add Applicant</button>
+ </div>
+ </div>
+
+ <div style="overflow:auto; margin-top: 10px;">
+ <table class="table" aria-label="Applicants table">
+ <thead>
+ <tr>
+ <th>Candidate</th>
+ <th>Applied Job</th>
+ <th>Experience</th>
+ <th>Status</th>
+ <th>Source</th>
+ <th>Resume</th>
+ <th style="width: 260px;">Actions</th>
+ </tr>
+ </thead>
+ <tbody id="tableBody">
+ <tr><td colspan="7" class="small-muted">Loading...</td></tr>
+ </tbody>
+ </table>
+ </div>
+ </div>
+
+ <div id="modalOverlay" class="modal-overlay" aria-hidden="true">
+ <div class="modal modal-lg" role="dialog" aria-modal="true" aria-label="Applicant modal">
+ <div class="modal-header">
+ <div>
+ <div class="modal-title" id="modalTitle">Add Applicant</div>
+ <div class="small-muted" id="modalSubtitle">Enter candidate details and upload resume.</div>
+ </div>
+ <button class="icon-btn" id="closeModalBtn" aria-label="Close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+ </div>
+
+ <form id="applicantForm">
+ <div class="modal-body">
+ <div id="formAlert" class="alert" role="alert"></div>
+
+ <div class="form-section">
+ <div class="form-section-title">Personal Info</div>
+ <div class="form-grid-2">
+ <div class="field">
+ <label for="full_name">Full Name</label>
+ <input id="full_name" name="full_name" type="text" required />
+ </div>
+ <div class="field">
+ <label for="phone">Phone Number</label>
+ <input id="phone" name="phone" type="tel" required />
+ </div>
+ <div class="field">
+ <label for="email">Email Address</label>
+ <input id="email" name="email" type="email" required />
+ </div>
+ <div class="field">
+ <label for="dob">Date of Birth</label>
+ <input id="dob" name="dob" type="date" required />
+ </div>
+ <div class="field">
+ <label for="gender">Gender</label>
+ <select id="gender" name="gender" class="select" required>
+ <option value="">Select</option>
+ <option value="male">Male</option>
+ <option value="female">Female</option>
+ <option value="other">Other</option>
+ </select>
+ </div>
+ <div class="field">
+ <label for="candidate_status">Candidate Status</label>
+ <select id="candidate_status" name="candidate_status" class="select" required>
+ <option value="active">Active</option>
+ <option value="hold">Hold</option>
+ <option value="rejected">Rejected</option>
+ <option value="pool">Pool</option>
+ </select>
+ </div>
+
+ <div class="field">
+ <label for="city">Current City</label>
+ <input id="city" name="city" type="text" required />
+ </div>
+ <div class="field">
+ <label for="state">Current State</label>
+ <input id="state" name="state" type="text" required />
+ </div>
+ <div class="field" style="grid-column: 1 / -1;">
+ <label for="address">Full Address</label>
+ <input id="address" name="address" type="text" required />
+ </div>
+ </div>
+ </div>
+
+ <div class="form-section">
+ <div class="form-section-title">Professional Info</div>
+ <div class="form-grid-2">
+ <div class="field">
+ <label for="total_experience">Total Experience (years)</label>
+ <input id="total_experience" name="total_experience" type="number" min="0" step="0.5" required />
+ </div>
+ <div class="field">
+ <label for="notice_period">Notice Period</label>
+ <input id="notice_period" name="notice_period" type="text" placeholder="e.g., 15 days / 30 days" required />
+ </div>
+
+ <div class="field">
+ <label for="current_company">Current Company</label>
+ <input id="current_company" name="current_company" type="text" required />
+ </div>
+ <div class="field">
+ <label for="current_designation">Current Designation</label>
+ <input id="current_designation" name="current_designation" type="text" required />
+ </div>
+
+ <div class="field">
+ <label for="current_salary">Current Salary</label>
+ <input id="current_salary" name="current_salary" type="number" min="0" step="0.01" required />
+ </div>
+ <div class="field">
+ <label for="expected_salary">Expected Salary</label>
+ <input id="expected_salary" name="expected_salary" type="number" min="0" step="0.01" required />
+ </div>
+
+ <div class="field">
+ <label for="qualification">Highest Qualification</label>
+ <input id="qualification" name="qualification" type="text" required />
+ </div>
+ <div class="field">
+ <label for="preferred_location">Preferred Location</label>
+ <input id="preferred_location" name="preferred_location" type="text" required />
+ </div>
+
+ <div class="field" style="grid-column: 1 / -1;">
+ <label for="skills_input">Skills (comma separated)</label>
+ <input id="skills_input" name="skills" type="text" placeholder="e.g., ICU, Ventilator, Patient Care" required />
+ </div>
+ <div class="field" style="grid-column: 1 / -1;">
+ <label for="certifications">Certifications (optional)</label>
+ <input id="certifications" name="certifications" type="text" placeholder="e.g., BLS, ACLS" />
+ </div>
+ </div>
+ </div>
+
+ <div class="form-section">
+ <div class="form-section-title">Job Info</div>
+ <div class="form-grid-2">
+ <div class="field" style="grid-column: 1 / -1;">
+ <label for="applied_job_id">Applied Job</label>
+ <select id="applied_job_id" name="applied_job_id" class="select" required>
+ <option value="">Select job opening</option>
+ </select>
+ </div>
+ <div class="field">
+ <label for="source">Source</label>
+ <select id="source" name="source" class="select" required>
+ <option value="call">Call</option>
+ <option value="whatsapp">WhatsApp</option>
+ <option value="portal">Portal</option>
+ <option value="social_media">Social Media</option>
+ <option value="referral">Referral</option>
+ </select>
+ </div>
+ <div class="field">
+ <label for="referral_reward_status">Referral Reward Status</label>
+ <select id="referral_reward_status" name="referral_reward_status" class="select" required>
+ <option value="pending">Pending</option>
+ <option value="eligible">Eligible</option>
+ <option value="rewarded">Rewarded</option>
+ </select>
+ </div>
+ </div>
+ </div>
+
+<div class="form-section">
+  <div class="form-section-title">Resume Upload</div>
+  <div class="form-grid-2">
+  <div class="field" style="grid-column: 1 / -1;">
+  <label for="resume">Resume (Optional)</label>
+  <input id="resume" name="resume" type="file" accept="application/pdf" />
+  <div class="field-hint" id="resumeHint">Resume is optional.</div>
+  <div class="field-hint" id="existingResume" style="display:none;"></div>
+  </div>
+  </div>
+  </div>
+
+ <div class="form-section">
+ <div class="form-section-title">Referral Details</div>
+ <div class="form-grid-2">
+ <div class="field">
+ <label for="referred_by">Referred By (optional)</label>
+ <input id="referred_by" name="referred_by" type="text" />
+ </div>
+ <div class="field">
+ <label for="referral_contact">Referral Contact (optional)</label>
+ <input id="referral_contact" name="referral_contact" type="text" />
+ </div>
+ </div>
+ </div>
+
+ <div class="form-section">
+ <div class="form-section-title">Notes</div>
+ <div class="form-grid-2">
+ <div class="field" style="grid-column: 1 / -1;">
+ <label for="notes">Notes</label>
+ <textarea id="notes" name="notes" placeholder="Any screening notes, preferences, or remarks."></textarea>
+ </div>
+ </div>
+ </div>
+
+ </div>
+ <div class="modal-footer">
+ <button type="button" class="btn btn-outline" id="cancelBtn">Cancel</button>
+ <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
+ </div>
+ </form>
+ </div>
+ </div>
+
+ <div id="detailsOverlay" class="modal-overlay" aria-hidden="true">
+ <div class="modal modal-lg" role="dialog" aria-modal="true" aria-label="Applicant details">
+ <div class="modal-header">
+ <div>
+ <div class="modal-title">Applicant Details</div>
+ <div class="small-muted">Full candidate record</div>
+ </div>
+ <button class="icon-btn" id="closeDetailsBtn" aria-label="Close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+ </div>
+ <div class="modal-body" id="detailsBody"></div>
+ <div class="modal-footer">
+ <button type="button" class="btn btn-primary" id="detailsOkBtn">OK</button>
+ </div>
+ </div>
+ </div>
+
+ </main>
+ </div>
+
+ <script src="../assets/js/api.js"></script>
+ <script src="../assets/js/auth.js"></script>
+ <script src="../assets/js/sidebar.js"></script>
+ <script>
+ // Keep topbar role pill in sync once profile loads.
+ const _setRole = () => {
+ const roleEl = document.getElementById('userRole');
+ const topRoleEl = document.getElementById('topRole');
+ const obs = new MutationObserver(() => { topRoleEl.textContent = roleEl.textContent || '-'; });
+ obs.observe(roleEl, { childList: true, characterData: true, subtree: true });
+ };
+ _setRole();
+ </script>
+ <script src="../assets/js/applicants.js"></script>
+</body>
+</html>

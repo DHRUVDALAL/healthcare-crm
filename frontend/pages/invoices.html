@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Invoices - Healthcare Recruitment CRM</title>
+ <meta name="description" content="Invoice Management" />
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="../assets/css/main.css" />
+</head>
+<body>
+  <div class="dashboard">
+  <aside class="sidebar" aria-label="Sidebar">
+  <a class="brand" href="../index.html">
+  <span class="brand-mark" aria-hidden="true"></span>
+  <span>HealthCRM</span>
+  </a>
+
+  <nav class="sidebar-nav" aria-label="Main navigation">
+  <a class="sidebar-nav-link" href="./dashboard.html">Dashboard</a>
+
+  <div class="sidebar-nav-item">
+    <button class="sidebar-nav-trigger" id="recruitment-trigger" aria-expanded="false" aria-controls="recruitment-children">
+      <span class="nav-label">Recruitment</span>
+      <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </button>
+    <div class="sidebar-nav-children" id="recruitment-children" role="list">
+      <a href="./hospitals.html" role="listitem">Hospitals</a>
+      <a href="./jobs.html" role="listitem">Jobs</a>
+      <a href="./applicants.html" role="listitem">Applicants</a>
+      <a href="./matching.html" role="listitem">Matching</a>
+      <a href="./pool.html" role="listitem">Pool Database</a>
+      <a href="./pipeline.html" role="listitem">Pipeline</a>
+      <a href="./interviews.html" role="listitem">Interviews</a>
+      <a href="./referrals.html" role="listitem">Referrals</a>
+    </div>
+  </div>
+
+  <div class="sidebar-nav-item">
+    <button class="sidebar-nav-trigger active" id="finance-trigger" aria-expanded="true" aria-controls="finance-children">
+      <span class="nav-label">Finance</span>
+      <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </button>
+    <div class="sidebar-nav-children open" id="finance-children" role="list">
+      <a class="active" href="./invoices.html" role="listitem">Invoices</a>
+      <a href="./salary.html" role="listitem">Salary</a>
+      <a href="./reports.html" role="listitem">Reports</a>
+      <a href="./projections.html" role="listitem">Projections</a>
+    </div>
+  </div>
+
+  <div class="sidebar-nav-item">
+    <button class="sidebar-nav-trigger" id="hr-trigger" aria-expanded="false" aria-controls="hr-children">
+      <span class="nav-label">HR</span>
+      <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </button>
+    <div class="sidebar-nav-children" id="hr-children" role="list">
+      <a href="./employees.html" role="listitem">Employees</a>
+      <a href="./attendance.html" role="listitem">Attendance</a>
+      <a href="./leaves.html" role="listitem">Leaves</a>
+        <a href="./tasks.html" role="listitem">Tasks</a>
+        <a href="./performance.html" role="listitem">Performance</a>
+      </div>
+  </div>
+
+  <div class="sidebar-nav-item">
+    <button class="sidebar-nav-trigger" id="admin-trigger" aria-expanded="false" aria-controls="admin-children">
+      <span class="nav-label">Admin</span>
+      <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </button>
+    <div class="sidebar-nav-children" id="admin-children" role="list">
+      <a href="./settings.html" role="listitem">Settings</a>
+      <a href="./calendar.html" role="listitem">Calendar</a>
+    </div>
+  </div>
+
+  <a class="sidebar-nav-link" href="./settings.html">Settings</a>
+  <a class="sidebar-nav-link" href="javascript:void(0)" id="logoutBtn" data-logout>Logout</a>
+  </nav>
+
+  <div class="card" style="margin-top:auto;padding:16px" aria-label="Account">
+  <div class="small-muted">Signed in as</div>
+  <div style="font-weight:800;font-size:15px;margin-top:4px" id="userName">Loading...</div>
+  <div style="margin-top:6px">
+  <span class="badge" style="font-size:11px" id="userRole">-</span>
+  </div>
+  </div>
+  </aside>
+
+ <main class="main">
+ <div class="topbar" role="banner">
+ <div class="topbar-left">
+ <div>
+ <div class="topbar-title">Invoice Management</div>
+ <div class="topbar-subtitle">Track and manage hospital placement invoices.</div>
+ </div>
+ <div class="topbar-search search-input">
+ <span class="search-input-icon" aria-hidden="true">
+ <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+ <circle cx="11" cy="11" r="8"></circle>
+ <path d="M21 21l-4.3-4.3"></path>
+ </svg>
+ </span>
+ <input class="input" type="text" placeholder="Search CRM..." aria-label="Search" />
+ </div>
+ </div>
+ <div class="topbar-right">
+ <button class="icon-btn" title="Notifications" aria-label="Notifications"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg></button>
+ <button class="btn btn-outline btn-sm" type="button">Quick Add</button>
+ <span class="pill">Role: <span id="topRole">-</span></span>
+ <div class="user-pill">
+ <span class="avatar">HC</span>
+ <div class="user-meta">
+ <div class="user-name">CRM User</div>
+ <div class="user-role">Healthcare Recruitment</div>
+ </div>
+ </div>
+ <button class="btn btn-danger btn-sm" type="button" data-logout>Logout</button>
+ </div>
+ </div>
+
+  <div class="card" style="margin-top: 12px; padding: 14px;">
+  <div class="toolbar">
+  <div class="toolbar-left" style="flex-wrap: wrap;">
+  <select id="filterStatus" class="select" style="min-width: 150px;">
+  <option value="">All Statuses</option>
+  <option value="pending">Pending</option>
+  <option value="paid">Paid</option>
+  <option value="overdue">Overdue</option>
+  </select>
+  <input id="filterSearch" class="input" type="text" placeholder="Search invoices..." style="min-width: 220px;" />
+  </div>
+  <div class="toolbar-right" style="display:flex; gap:8px; align-items:center;">
+  <span class="badge" id="statusBadge">Ready</span>
+  <button id="btnCreateInvoice" class="btn btn-primary" type="button">+ Create Invoice</button>
+  <button id="btnUploadInvoice" class="btn btn-outline" type="button">📤 Upload Invoice Document</button>
+  <button id="refreshBtn" class="btn btn-outline" type="button">Refresh</button>
+  </div>
+  </div>
+
+  <div style="overflow:auto; margin-top: 10px;">
+  <table class="table" aria-label="Invoices table">
+  <thead>
+  <tr>
+  <th>Invoice</th>
+  <th>Candidate & Hospital</th>
+  <th>Amount & Commission</th>
+  <th>Dates</th>
+  <th>Status</th>
+  <th style="width: 260px;">Actions</th>
+  </tr>
+  </thead>
+  <tbody id="tableBody">
+  <tr><td colspan="6" class="small-muted">Loading invoices...</td></tr>
+  </tbody>
+  </table>
+  </div>
+  </div>
+
+  <!-- Create Invoice Modal -->
+  <div id="createModalOverlay" class="modal-overlay" aria-hidden="true">
+    <div class="modal modal-lg" role="dialog" aria-modal="true" aria-label="Create Invoice">
+      <form id="createInvoiceForm">
+        <div class="modal-header">
+          <div>
+            <div class="modal-title">Create New Hospital Placement Invoice</div>
+            <div class="small-muted">Generate a new GST placement invoice for hospital billing</div>
+          </div>
+          <button type="button" class="icon-btn" id="closeCreateBtn" aria-label="Close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+        </div>
+        <div class="modal-body" style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+          <div class="form-group" style="grid-column: span 2;">
+            <label class="label">Invoice Number (Auto-generated if blank)</label>
+            <input type="text" id="create_invoice_number" class="input" placeholder="e.g. INV-2026-9001" />
+          </div>
+          <div class="form-group">
+            <label class="label">Hospital / Client <span style="color:var(--danger)">*</span></label>
+            <select id="create_hospital_id" class="select" required>
+              <option value="">Select Hospital...</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="label">Candidate / Applicant <span style="color:var(--danger)">*</span></label>
+            <select id="create_applicant_id" class="select" required>
+              <option value="">Select Candidate...</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="label">Job Requisition <span style="color:var(--danger)">*</span></label>
+            <select id="create_job_id" class="select" required>
+              <option value="">Select Job Position...</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="label">Candidate Offered CTC (₹) <span style="color:var(--danger)">*</span></label>
+            <input type="number" id="create_candidate_salary" class="input" placeholder="e.g. 1200000" required />
+          </div>
+          <div class="form-group">
+            <label class="label">Agency Commission (%) <span style="color:var(--danger)">*</span></label>
+            <input type="number" step="0.1" id="create_commission_percentage" class="input" placeholder="e.g. 10.0" value="10.0" required />
+          </div>
+          <div class="form-group">
+            <label class="label">Invoice Fee Amount (₹) <span style="color:var(--danger)">*</span></label>
+            <input type="number" id="create_invoice_amount" class="input" placeholder="Calculated automatically" required />
+          </div>
+          <div class="form-group">
+            <label class="label">Invoice Billed Date <span style="color:var(--danger)">*</span></label>
+            <input type="date" id="create_invoice_date" class="input" required />
+          </div>
+          <div class="form-group">
+            <label class="label">Payment Due Date <span style="color:var(--danger)">*</span></label>
+            <input type="date" id="create_due_date" class="input" required />
+          </div>
+          <div class="form-group" style="grid-column: span 2;">
+            <label class="label">Initial Payment Status</label>
+            <select id="create_payment_status" class="select">
+              <option value="pending">Pending</option>
+              <option value="paid">Paid</option>
+              <option value="overdue">Overdue</option>
+            </select>
+          </div>
+          <div class="form-group" style="grid-column: span 2;">
+            <label class="label">Invoice Terms & Notes</label>
+            <textarea id="create_notes" class="input" style="height:60px;" placeholder="Payment terms, bank transfer details, GST details..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" id="cancelCreateBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary">Generate Invoice</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Upload Invoice Document Modal -->
+  <div id="uploadModalOverlay" class="modal-overlay" aria-hidden="true">
+    <div class="modal modal-md" role="dialog" aria-modal="true" aria-label="Upload Invoice Document">
+      <form id="uploadInvoiceForm">
+        <div class="modal-header">
+          <div>
+            <div class="modal-title">Upload Signed Invoice / Receipt Document</div>
+            <div class="small-muted">Attach PDF or Image file to existing invoice</div>
+          </div>
+          <button type="button" class="icon-btn" id="closeUploadBtn" aria-label="Close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group" style="margin-bottom:14px;">
+            <label class="label">Select Invoice Record <span style="color:var(--danger)">*</span></label>
+            <select id="upload_invoice_id" class="select" required>
+              <option value="">Select Invoice Number...</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="label">Select Document File (PDF, JPG, PNG - Max 5MB) <span style="color:var(--danger)">*</span></label>
+            <input type="file" id="upload_invoice_file" class="input" accept="application/pdf,image/jpeg,image/png" required />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" id="cancelUploadBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary">Upload Document</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Update Status Modal -->
+  <div id="statusModalOverlay" class="modal-overlay" aria-hidden="true">
+  <div class="modal modal-md" role="dialog" aria-modal="true" aria-label="Update Invoice Status">
+  <form id="statusForm">
+  <div class="modal-header">
+  <div>
+  <div class="modal-title">Update Invoice Status</div>
+  <div class="small-muted">Mark payment as paid or overdue</div>
+  </div>
+  <button type="button" class="icon-btn" id="closeStatusBtn" aria-label="Close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+  </div>
+  <div class="modal-body">
+  <input type="hidden" id="statusInvId" />
+  <div class="form-group">
+  <label class="label">Status <span style="color:var(--danger)"></span></label>
+  <select id="statusSelect" class="select" required>
+  <option value="pending">Pending</option>
+  <option value="paid">Paid</option>
+  <option value="overdue">Overdue</option>
+  </select>
+  </div>
+  </div>
+  <div class="modal-footer">
+  <button type="button" class="btn btn-outline" id="cancelStatusBtn">Cancel</button>
+  <button type="submit" class="btn btn-primary">Update Status</button>
+  </div>
+  </form>
+  </div>
+  </div>
+
+  </main>
+ </div>
+
+  <script src="../assets/js/api.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/sidebar.js"></script>
+  <script src="../assets/js/invoices.js"></script>
+</body>
+</html>

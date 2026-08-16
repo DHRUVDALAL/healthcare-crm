@@ -1,0 +1,157 @@
+/* ==========================================================================
+   BASE & RESET - Healthcare Recruitment CRM
+   Premium Enterprise SaaS Design System
+   ========================================================================== */
+
+/* ===== RESET ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  -moz-tab-size: 4;
+  tab-size: 4;
+  font-size: 16px;
+}
+
+html,
+body {
+  min-height: 100vh;
+  background-color: var(--bg-secondary);
+  overflow-y: auto;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
+  background-image: 
+    radial-gradient(circle at 100% 0%, rgba(37, 99, 235, 0.035), transparent 40%),
+    radial-gradient(circle at 0% 100%, rgba(59, 130, 246, 0.025), transparent 40%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* ===== TYPOGRAPHY ===== */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--font-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-primary);
+}
+
+h1 {
+  font-size: var(--text-4xl);
+  font-weight: var(--font-black);
+  letter-spacing: var(--tracking-tighter);
+}
+
+h2 {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-extrabold);
+}
+
+h3 {
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+}
+
+h4 {
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+}
+
+p {
+  margin: 0;
+  line-height: var(--leading-relaxed);
+  color: var(--text-secondary);
+}
+
+/* ===== LINKS ===== */
+a {
+  color: var(--text-link);
+  text-decoration: none;
+  transition: all var(--transition-fast) var(--ease-default);
+}
+
+a:hover {
+  color: var(--text-link-hover);
+}
+
+a:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ===== IMAGES ===== */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ===== BUTTON & FORM BASE ===== */
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  outline: none;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* ===== SELECTION ===== */
+::selection {
+  background: var(--primary-100);
+  color: var(--primary-900);
+}
+
+/* ===== SCROLLBARS ===== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ===== SECTIONS & PACKS ===== */
+section {
+  position: relative;
+}
+
+/* ===== FOCUS INDICATOR ===== */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}

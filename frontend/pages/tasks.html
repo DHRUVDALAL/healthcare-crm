@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Daily Tasks - Healthcare Recruitment CRM</title>
+  <meta name="description" content="Daily Tasks Management" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/main.css" />
+</head>
+<body>
+  <div class="dashboard">
+    <!-- SIDEBAR -->
+    <aside class="sidebar" aria-label="Sidebar">
+      <a class="brand" href="../index.html">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>HealthCRM</span>
+      </a>
+
+      <nav class="sidebar-nav" aria-label="Main navigation">
+        <a class="sidebar-nav-link" href="./dashboard.html">Dashboard</a>
+
+        <div class="sidebar-nav-item">
+          <button class="sidebar-nav-trigger" id="recruitment-trigger" aria-expanded="false" aria-controls="recruitment-children">
+            <span class="nav-label">Recruitment</span>
+            <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="sidebar-nav-children" id="recruitment-children" role="list">
+            <a href="./hospitals.html" role="listitem">Hospitals</a>
+            <a href="./jobs.html" role="listitem">Jobs</a>
+            <a href="./applicants.html" role="listitem">Applicants</a>
+            <a href="./matching.html" role="listitem">Matching</a>
+            <a href="./pool.html" role="listitem">Pool Database</a>
+            <a href="./pipeline.html" role="listitem">Pipeline</a>
+            <a href="./interviews.html" role="listitem">Interviews</a>
+            <a href="./referrals.html" role="listitem">Referrals</a>
+          </div>
+        </div>
+
+        <div class="sidebar-nav-item">
+          <button class="sidebar-nav-trigger" id="finance-trigger" aria-expanded="false" aria-controls="finance-children">
+            <span class="nav-label">Finance</span>
+            <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="sidebar-nav-children" id="finance-children" role="list">
+            <a href="./invoices.html" role="listitem">Invoices</a>
+            <a href="./salary.html" role="listitem">Salary</a>
+            <a href="./reports.html" role="listitem">Reports</a>
+            <a href="./projections.html" role="listitem">Projections</a>
+          </div>
+        </div>
+
+        <div class="sidebar-nav-item">
+          <button class="sidebar-nav-trigger" id="hr-trigger" aria-expanded="false" aria-controls="hr-children">
+            <span class="nav-label">HR</span>
+            <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="sidebar-nav-children" id="hr-children" role="list">
+            <a href="./employees.html" role="listitem">Employees</a>
+            <a href="./attendance.html" role="listitem">Attendance</a>
+            <a href="./leaves.html" role="listitem">Leaves</a>
+            <a href="./tasks.html" role="listitem" class="active">Tasks</a>
+            <a href="./performance.html" role="listitem">Performance</a>
+          </div>
+        </div>
+
+        <div class="sidebar-nav-item">
+          <button class="sidebar-nav-trigger" id="admin-trigger" aria-expanded="false" aria-controls="admin-children">
+            <span class="nav-label">Admin</span>
+            <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="sidebar-nav-children" id="admin-children" role="list">
+            <a href="./settings.html" role="listitem">Settings</a>
+            <a href="./calendar.html" role="listitem">Calendar</a>
+          </div>
+        </div>
+
+        <a class="sidebar-nav-link" href="javascript:void(0)" id="logoutBtn" data-logout>Logout</a>
+        <div class="card" style="margin-top:auto;padding:16px" aria-label="Account">
+  <div class="small-muted">Signed in as</div>
+  <div style="font-weight:800;font-size:15px;margin-top:4px" id="userName">Loading...</div>
+  <div style="margin-top:6px">
+  <span class="badge" style="font-size:11px" id="userRole">-</span>
+  </div>
+  </div>
+  </nav>
+  </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+      <div class="topbar" role="banner">
+        <div class="topbar-left">
+          <div>
+            <div class="topbar-title">Daily Tasks</div>
+            <div class="topbar-subtitle">Assign, track, and review recruiter task assignments.</div>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <button class="btn btn-primary admin-only" id="openAddBtn" style="display: none;">Assign Task</button>
+          <span class="pill">Role: <span id="topRole">-</span></span>
+          <div class="user-pill">
+            <span class="avatar" id="avatarSpan">CRM</span>
+            <div class="user-meta">
+              <div class="user-name" id="userNameSpan">CRM User</div>
+              <div class="user-role" id="userRoleSpan">Healthcare Recruitment</div>
+            </div>
+          </div>
+          <button class="btn btn-danger btn-sm" type="button" data-logout>Logout</button>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 12px; padding: 14px;">
+        <div class="toolbar">
+          <div class="toolbar-left" style="flex-wrap: wrap;">
+            <select id="filterStatus" class="select" style="min-width: 130px;">
+              <option value="">All Statuses</option>
+              <option value="not_started">Not Started</option>
+              <option value="in_progress">In Progress</option>
+              <option value="completed">Completed</option>
+              <option value="overdue">Overdue</option>
+            </select>
+            <select id="filterPriority" class="select" style="min-width: 130px;">
+              <option value="">All Priorities</option>
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+            </select>
+            <select id="filterType" class="select" style="min-width: 130px;">
+              <option value="">All Types</option>
+              <option value="daily">Daily</option>
+              <option value="weekly">Weekly</option>
+              <option value="monthly">Monthly</option>
+            </select>
+            <select id="filterEmployee" class="select admin-only" style="min-width: 180px; display: none;">
+              <option value="">All Employees</option>
+            </select>
+          </div>
+          <div class="toolbar-right">
+            <span class="badge" id="statusBadge">Ready</span>
+            <button id="refreshBtn" class="btn btn-outline" type="button">Refresh</button>
+          </div>
+        </div>
+
+        <div style="overflow:auto; margin-top: 10px;">
+          <table class="table" aria-label="Tasks table">
+            <thead>
+              <tr>
+                <th>Title & Details</th>
+                <th>Priority</th>
+                <th>Type</th>
+                <th class="admin-only" style="display: none;">Assigned To</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>Review / Feedback</th>
+                <th style="width: 180px;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              <tr><td colspan="8" class="small-muted">Loading tasks...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Add/Edit Task Modal -->
+      <div id="modalOverlay" class="modal-overlay" aria-hidden="true">
+        <div class="modal modal-md" role="dialog" aria-modal="true" aria-label="Task Form">
+          <form id="taskForm">
+            <div class="modal-header">
+              <div>
+                <div class="modal-title" id="modalTitle">Assign Task</div>
+                <div class="small-muted">Fill in task details below</div>
+              </div>
+              <button type="button" class="icon-btn" id="closeModalBtn" aria-label="Close">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+            <div class="modal-body">
+              <input type="hidden" id="taskId" />
+
+              <div style="display: grid; grid-template-columns: 1fr; gap: 14px;">
+                <div class="form-group">
+                  <label class="label" for="taskTitleInput">Task Title <span style="color:var(--danger)">*</span></label>
+                  <input class="input" type="text" id="taskTitleInput" required />
+                </div>
+
+                <div class="form-group">
+                  <label class="label" for="taskDescInput">Description</label>
+                  <textarea class="input" id="taskDescInput" rows="3"></textarea>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                  <div class="form-group">
+                    <label class="label" for="taskTypeInput">Task Type</label>
+                    <select id="taskTypeInput" class="select" required>
+                      <option value="daily">Daily</option>
+                      <option value="weekly">Weekly</option>
+                      <option value="monthly">Monthly</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="label" for="taskPriorityInput">Priority</label>
+                    <select id="taskPriorityInput" class="select" required>
+                      <option value="medium">Medium</option>
+                      <option value="high">High</option>
+                      <option value="low">Low</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="label" for="taskAssigneeInput">Assign To <span style="color:var(--danger)">*</span></label>
+                  <select id="taskAssigneeInput" class="select" required>
+                    <option value="">Select Employee...</option>
+                  </select>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                  <div class="form-group">
+                    <label class="label" for="taskDueDateInput">Due Date <span style="color:var(--danger)">*</span></label>
+                    <input class="input" type="date" id="taskDueDateInput" required />
+                  </div>
+
+                  <div class="form-group">
+                    <label class="label" for="taskDueTimeInput">Due Time</label>
+                    <input class="input" type="time" id="taskDueTimeInput" />
+                  </div>
+                </div>
+
+                <div class="form-group" id="editStatusGroup" style="display: none;">
+                  <label class="label" for="taskStatusInput">Status</label>
+                  <select id="taskStatusInput" class="select">
+                    <option value="not_started">Not Started</option>
+                    <option value="in_progress">In Progress</option>
+                    <option value="completed">Completed</option>
+                    <option value="overdue">Overdue</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline" id="cancelBtn">Cancel</button>
+              <button type="submit" class="btn btn-primary" id="saveBtn">Assign Task</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Complete Task Modal (Employee) -->
+      <div id="completeModalOverlay" class="modal-overlay" aria-hidden="true">
+        <div class="modal modal-sm" role="dialog" aria-modal="true" aria-label="Complete Task Form">
+          <form id="completeTaskForm">
+            <div class="modal-header">
+              <div>
+                <div class="modal-title">Complete Task</div>
+                <div class="small-muted">Log completion details</div>
+              </div>
+              <button type="button" class="icon-btn" id="closeCompleteModalBtn" aria-label="Close">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+            <div class="modal-body">
+              <input type="hidden" id="completeTaskId" />
+              <div class="form-group">
+                <label class="label" for="completionNotesInput">Completion Notes <span style="color:var(--danger)">*</span></label>
+                <textarea class="input" id="completionNotesInput" rows="3" required placeholder="What was accomplished?"></textarea>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline" id="cancelCompleteBtn">Cancel</button>
+              <button type="submit" class="btn btn-primary">Mark Completed</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Review Task Modal (Admin) -->
+      <div id="reviewModalOverlay" class="modal-overlay" aria-hidden="true">
+        <div class="modal modal-sm" role="dialog" aria-modal="true" aria-label="Review Task Form">
+          <form id="reviewTaskForm">
+            <div class="modal-header">
+              <div>
+                <div class="modal-title">Review Task</div>
+                <div class="small-muted">Submit feedback and rating for this completed task</div>
+              </div>
+              <button type="button" class="icon-btn" id="closeReviewModalBtn" aria-label="Close">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+            <div class="modal-body">
+              <input type="hidden" id="reviewTaskId" />
+              
+              <div style="display: grid; grid-template-columns: 1fr; gap: 14px;">
+                <div class="form-group">
+                  <label class="label" for="reviewRatingInput">Quality Rating <span style="color:var(--danger)">*</span></label>
+                  <select id="reviewRatingInput" class="select" required>
+                    <option value="">Select Rating...</option>
+                    <option value="5">5 - Excellent</option>
+                    <option value="4">4 - Very Good</option>
+                    <option value="3">3 - Good / Satisfactory</option>
+                    <option value="2">2 - Below Average</option>
+                    <option value="1">1 - Unsatisfactory</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="label" for="reviewNotesInput">Review Comments</label>
+                  <textarea class="input" id="reviewNotesInput" rows="3" placeholder="Provide feedback to the recruiter..."></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline" id="cancelReviewBtn">Cancel</button>
+              <button type="submit" class="btn btn-primary">Submit Review</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="../assets/js/api.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/sidebar.js"></script>
+  <script src="../assets/js/tasks.js"></script>
+</body>
+</html>

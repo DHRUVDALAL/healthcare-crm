@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dashboard - Healthcare Recruitment CRM</title>
+  <meta name="description" content="Executive Dashboard" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/main.css" />
+</head>
+<body>
+  <div class="dashboard">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" aria-label="Sidebar">
+  <a class="brand" href="../index.html">
+  <span class="brand-mark" aria-hidden="true"></span>
+  <span>HealthCRM</span>
+  </a>
+
+  <nav class="sidebar-nav" aria-label="Main navigation">
+  <a class="sidebar-nav-link active" href="./dashboard.html">Dashboard</a>
+
+  <div class="sidebar-nav-item">
+    <button class="sidebar-nav-trigger" id="recruitment-trigger" aria-expanded="false" aria-controls="recruitment-children">
+      <span class="nav-label">Recruitment</span>
+      <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </button>
+    <div class="sidebar-nav-children" id="recruitment-children" role="list">
+      <a href="./hospitals.html" role="listitem">Hospitals</a>
+      <a href="./jobs.html" role="listitem">Jobs</a>
+      <a href="./applicants.html" role="listitem">Applicants</a>
+      <a href="./matching.html" role="listitem">Matching</a>
+      <a href="./pool.html" role="listitem">Pool Database</a>
+      <a href="./pipeline.html" role="listitem">Pipeline</a>
+      <a href="./interviews.html" role="listitem">Interviews</a>
+      <a href="./referrals.html" role="listitem">Referrals</a>
+    </div>
+  </div>
+
+  <div class="sidebar-nav-item">
+    <button class="sidebar-nav-trigger" id="finance-trigger" aria-expanded="false" aria-controls="finance-children">
+      <span class="nav-label">Finance</span>
+      <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </button>
+    <div class="sidebar-nav-children" id="finance-children" role="list">
+      <a href="./invoices.html" role="listitem">Invoices</a>
+      <a href="./salary.html" role="listitem">Salary</a>
+      <a href="./reports.html" role="listitem">Reports</a>
+      <a href="./projections.html" role="listitem">Projections</a>
+    </div>
+  </div>
+
+  <div class="sidebar-nav-item">
+    <button class="sidebar-nav-trigger" id="hr-trigger" aria-expanded="false" aria-controls="hr-children">
+      <span class="nav-label">HR</span>
+      <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </button>
+    <div class="sidebar-nav-children" id="hr-children" role="list">
+      <a href="./employees.html" role="listitem">Employees</a>
+      <a href="./attendance.html" role="listitem">Attendance</a>
+      <a href="./leaves.html" role="listitem">Leaves</a>
+        <a href="./tasks.html" role="listitem">Tasks</a>
+        <a href="./performance.html" role="listitem">Performance</a>
+      </div>
+  </div>
+
+  <div class="sidebar-nav-item">
+    <button class="sidebar-nav-trigger" id="admin-trigger" aria-expanded="false" aria-controls="admin-children">
+      <span class="nav-label">Admin</span>
+      <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </button>
+    <div class="sidebar-nav-children" id="admin-children" role="list">
+      <a href="./settings.html" role="listitem">Settings</a>
+      <a href="./calendar.html" role="listitem">Calendar</a>
+    </div>
+  </div>
+
+  <a class="sidebar-nav-link" href="./settings.html">Settings</a>
+  <a class="sidebar-nav-link" href="javascript:void(0)" id="logoutBtn" data-logout>Logout</a>
+  </nav>
+
+  <div class="card" style="margin-top:auto;padding:16px" aria-label="Account">
+  <div class="small-muted">Signed in as</div>
+  <div style="font-weight:800;font-size:15px;margin-top:4px" id="userName">Loading...</div>
+  <div style="margin-top:6px">
+  <span class="badge" style="font-size:11px" id="userRole">-</span>
+  </div>
+  </div>
+  </aside>
+
+ <!-- MAIN -->
+ <main class="main">
+ <!-- TOPBAR -->
+ <div class="topbar" role="banner">
+ <div class="topbar-left">
+ <div>
+ <div class="topbar-title">Dashboard</div>
+ <div class="topbar-subtitle">Executive overview for recruitment performance</div>
+ </div>
+ <div class="topbar-search search-input">
+ <span class="search-input-icon" aria-hidden="true">
+ <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+ <circle cx="11" cy="11" r="8"></circle>
+ <path d="M21 21l-4.3-4.3"></path>
+ </svg>
+ </span>
+ <input class="input" type="text" placeholder="Search CRM..." aria-label="Search" />
+ </div>
+ </div>
+ <div class="topbar-right">
+ <button class="icon-btn" title="Notifications" aria-label="Notifications"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg></button>
+ <button class="btn btn-outline btn-sm" type="button">Quick Add</button>
+ <span class="pill">Role: <span id="topRole">-</span></span>
+ <div class="user-pill">
+ <span class="avatar">HC</span>
+ <div class="user-meta">
+ <div class="user-name">CRM User</div>
+ <div class="user-role">Healthcare Recruitment</div>
+ </div>
+ </div>
+ <button class="btn btn-danger btn-sm" type="button" data-logout>Logout</button>
+ </div>
+ </div>
+
+  <div id="adminView">
+  <!-- KPI SECTION - Row 1: Core Recruitment -->
+  <section class="grid-kpi" aria-label="KPIs">
+  <div class="card kpi">
+  <div class="kpi-row">
+  <div class="kpi-icon kpi-blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+  <div>
+  <div class="label">Total Applicants</div>
+  <div class="value" id="kpiApplicants">-</div>
+  </div>
+  </div>
+  </div>
+  <div class="card kpi">
+  <div class="kpi-row">
+  <div class="kpi-icon kpi-green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 3h-8v4h8z"/></svg></div>
+  <div>
+  <div class="label">Active Jobs</div>
+  <div class="value" id="kpiJobs">-</div>
+  </div>
+  </div>
+  </div>
+  <div class="card kpi">
+  <div class="kpi-row">
+  <div class="kpi-icon kpi-purple"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
+  <div>
+  <div class="label">Total Hires</div>
+  <div class="value" id="kpiHires">-</div>
+  </div>
+  </div>
+  </div>
+  <div class="card kpi">
+  <div class="kpi-row">
+  <div class="kpi-icon kpi-amber"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+  <div>
+  <div class="label">Revenue Generated</div>
+  <div class="value" id="kpiTotalRevenue" style="font-size:22px">-</div>
+  </div>
+  </div>
+  </div>
+  </section>
+
+  <!-- KPI Row 2: Pipeline & Interview stats -->
+  <section class="grid-kpi" aria-label="Pipeline KPIs" style="margin-top:12px">
+  <div class="card kpi">
+  <div class="label">Pipeline</div>
+  <div class="value" id="kpiPipeline">-</div>
+  </div>
+  <div class="card kpi">
+  <div class="label">Interviews</div>
+  <div class="value" id="kpiInterviews">-</div>
+  </div>
+  <div class="card kpi">
+  <div class="label">Selected</div>
+  <div class="value" style="color:var(--success)" id="kpiSelected">-</div>
+  </div>
+  <div class="card kpi">
+  <div class="label">Rejected</div>
+  <div class="value" style="color:var(--danger)" id="kpiRejected">-</div>
+  </div>
+  </section>
+
+  <!-- KPI Row 3: Finance & HR -->
+  <section class="grid-kpi" aria-label="Finance KPIs" style="margin-top:12px">
+  <div class="card kpi">
+  <div class="label">Pool Candidates</div>
+  <div class="value" id="kpiPool">-</div>
+  </div>
+  <div class="card kpi">
+  <div class="label">Pending Invoices</div>
+  <div class="value" id="kpiPendingInvoices">-</div>
+  </div>
+  <div class="card kpi">
+  <div class="label">Paid Invoices</div>
+  <div class="value" id="kpiPaidInvoices">-</div>
+  </div>
+  <div class="card kpi">
+  <div class="label">Pending Referrals</div>
+  <div class="value" id="kpiReferralPending">-</div>
+  </div>
+  </section>
+
+  <!-- KPI Row 4: Employees -->
+  <section class="grid-kpi" aria-label="HR KPIs" style="margin-top:12px">
+  <div class="card kpi">
+  <div class="label">Total Employees</div>
+  <div class="value" id="kpiTotalEmployees">-</div>
+  </div>
+  <div class="card kpi">
+  <div class="label">Present Today</div>
+  <div class="value" style="color:var(--success)" id="kpiPresentToday">-</div>
+  </div>
+  <div class="card kpi">
+  <div class="label">Pending Leaves</div>
+  <div class="value" id="kpiPendingLeaves">-</div>
+  </div>
+  <div class="card kpi">
+  <div class="label">Pending Salaries</div>
+  <div class="value" id="kpiPendingSalaries">-</div>
+  </div>
+  </section>
+
+  <!-- MAIN CONTENT GRID -->
+  <section class="content-grid" aria-label="Main widgets" style="margin-top:20px">
+  <!-- LEFT: Recent Activity -->
+  <div class="card table-card">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+  <div>
+  <div class="widget-title">Recent Activity</div>
+  <div class="small-muted">Latest applicants added</div>
+  </div>
+  <span class="badge" style="font-size:11px">Live</span>
+  </div>
+
+  <table class="table" aria-label="Recent activity table">
+  <thead>
+  <tr>
+  <th>Type</th>
+  <th>Summary</th>
+  <th>Status</th>
+  <th>Time</th>
+  </tr>
+  </thead>
+  <tbody id="recentActivityBody">
+  <tr><td colspan="4" class="small-muted">Loading...</td></tr>
+  </tbody>
+  </table>
+  </div>
+
+  <!-- RIGHT: Tasks & Progress -->
+  <div style="display:flex;flex-direction:column;gap:16px">
+  <div class="card widget">
+  <div class="widget-title">Upcoming Tasks</div>
+  <div class="small-muted">Your scheduled calendar events</div>
+  <div id="upcomingTasksContainer" style="display:grid;gap:8px;margin-top:14px">
+  <div class="small-muted">Loading...</div>
+  </div>
+  </div>
+
+  <div class="card widget">
+  <div class="widget-title">Monthly Target Progress</div>
+  <div class="small-muted">Progress against executive targets</div>
+  <div id="monthlyProgressContainer" style="margin-top:14px">
+  <div class="small-muted">Loading...</div>
+  </div>
+  </div>
+  </div>
+  </section>
+  </div>
+
+  <div id="employeeView" style="display:none">
+    <!-- Today's Summary Grid -->
+    <section class="grid-kpi" aria-label="Today's Productivity Summary">
+      <div class="card kpi">
+        <div class="kpi-row">
+          <div class="kpi-icon kpi-blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+          <div>
+            <div class="label">Assigned Candidates</div>
+            <div class="value" id="empKpiAssigned">-</div>
+          </div>
+        </div>
+      </div>
+      <div class="card kpi">
+        <div class="kpi-row">
+          <div class="kpi-icon kpi-amber"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div>
+            <div class="label">Pending Follow-ups</div>
+            <div class="value" id="empKpiFollowups">-</div>
+          </div>
+        </div>
+      </div>
+      <div class="card kpi">
+        <div class="kpi-row">
+          <div class="kpi-icon kpi-purple"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+          <div>
+            <div class="label">Today's Interviews</div>
+            <div class="value" id="empKpiInterviews">-</div>
+          </div>
+        </div>
+      </div>
+      <div class="card kpi">
+        <div class="kpi-row">
+          <div class="kpi-icon kpi-green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+          <div>
+            <div class="label">Tasks Due Today</div>
+            <div class="value" id="empKpiTasks">-</div>
+          </div>
+        </div>
+      </div>
+      <div class="card kpi">
+        <div class="kpi-row">
+          <div class="kpi-icon kpi-blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div>
+            <div class="label">New Assignments</div>
+            <div class="value" id="empKpiNew">-</div>
+          </div>
+        </div>
+      </div>
+      <div class="card kpi">
+        <div class="kpi-row">
+          <div class="kpi-icon kpi-amber"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+          <div>
+            <div class="label">Notifications</div>
+            <div class="value" id="empKpiNotifications">-</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Actions Panel -->
+    <section class="card" style="margin-top:20px;padding:20px" aria-label="Quick Actions">
+      <div class="widget-title">Quick Actions</div>
+      <div class="small-muted" style="margin-bottom:15px">Recruitment activity shortcuts</div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px">
+        <a class="btn btn-primary" href="./my-candidates.html?action=add">Add Applicant</a>
+        <a class="btn btn-outline" href="./my-candidates.html">Update Candidate</a>
+        <a class="btn btn-outline" href="./interviews.html">Schedule Interview</a>
+        <a class="btn btn-outline" href="./pipeline.html">Submit to Hospital</a>
+        <a class="btn btn-outline" href="./my-candidates.html">Add Follow-up</a>
+        <a class="btn btn-outline" href="./pipeline.html">View My Pipeline</a>
+        <a class="btn btn-outline" href="./calendar.html">View My Calendar</a>
+      </div>
+    </section>
+
+    <!-- Content Grid: Performance Progress, Leaderboard, Schedule, Tasks -->
+    <section class="content-grid" style="margin-top:20px" aria-label="Productivity Workspaces">
+      <!-- Left: Performance Targets & Leaderboard -->
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div class="widget-title">Recruitment Performance Targets</div>
+              <div class="small-muted">Track progress against weekly, monthly, and quarterly goals</div>
+            </div>
+            <span class="badge badge-success" style="font-size:13px;padding:6px 12px">Leaderboard Rank: <strong id="leaderboardRank">-</strong></span>
+          </div>
+
+          <div style="margin-top:20px;display:grid;gap:20px">
+            <!-- Weekly -->
+            <div>
+              <div style="display:flex;justify-content:space-between;font-weight:600;font-size:14px;margin-bottom:6px">
+                <span>Weekly Placements</span>
+                <span id="weeklyPlacementText">- / -</span>
+              </div>
+              <div class="progress-bar-container" style="background:#e2e8f0;border-radius:4px;height:10px;overflow:hidden">
+                <div id="weeklyPlacementBar" style="background:var(--primary);height:100%;width:0%"></div>
+              </div>
+            </div>
+            <!-- Monthly -->
+            <div>
+              <div style="display:flex;justify-content:space-between;font-weight:600;font-size:14px;margin-bottom:6px">
+                <span>Monthly Submissions</span>
+                <span id="monthlySubText">- / -</span>
+              </div>
+              <div class="progress-bar-container" style="background:#e2e8f0;border-radius:4px;height:10px;overflow:hidden">
+                <div id="monthlySubBar" style="background:var(--success);height:100%;width:0%"></div>
+              </div>
+            </div>
+            <!-- Quarterly -->
+            <div>
+              <div style="display:flex;justify-content:space-between;font-weight:600;font-size:14px;margin-bottom:6px">
+                <span>Quarterly Revenue Target</span>
+                <span id="quarterlyRevText">- / -</span>
+              </div>
+              <div class="progress-bar-container" style="background:#e2e8f0;border-radius:4px;height:10px;overflow:hidden">
+                <div id="quarterlyRevBar" style="background:var(--info);height:100%;width:0%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Leaderboard Preview -->
+        <div class="card table-card">
+          <div class="widget-title">Leaderboard Position</div>
+          <div class="small-muted">Top performers this month</div>
+          <table class="table" style="margin-top:10px">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Recruiter</th>
+                <th>Placements</th>
+                <th>Revenue</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboardBody">
+              <tr><td colspan="4" class="small-muted">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Right: Schedule & Overdue Tasks -->
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <div class="card">
+          <div class="widget-title">My Schedule & Follow-ups</div>
+          <div class="small-muted" style="margin-bottom:15px">Today's upcoming tasks, interviews, and follow-ups</div>
+          <div id="employeeScheduleContainer" style="display:grid;gap:12px">
+            <div class="small-muted">Loading...</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="widget-title">My Active Recruiter Tasks</div>
+          <div class="small-muted" style="margin-bottom:15px">Tasks assigned to you</div>
+          <div id="employeeTasksContainer" style="display:grid;gap:10px">
+            <div class="small-muted">Loading...</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+ </main>
+ </div>
+
+<script src="../assets/js/api.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/sidebar.js"></script>
+  <script>
+  const _setRole = () => {
+  const roleEl = document.getElementById('userRole');
+  const topRoleEl = document.getElementById('topRole');
+  const obs = new MutationObserver(() => { topRoleEl.textContent = roleEl.textContent || '-'; });
+  obs.observe(roleEl, { childList: true, characterData: true, subtree: true });
+  };
+  _setRole();
+  </script>
+  <script src="../assets/js/dashboard.js"></script>
+</body>
+</html>

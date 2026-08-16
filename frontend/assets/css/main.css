@@ -1,0 +1,17 @@
+/* ==========================================================================
+   HEALTHCARE RECRUITMENT CRM - MAIN STYLESHEET
+   Premium Enterprise SaaS Design System
+   Import order matters: tokens → reset → components → page-specific → responsive
+   ========================================================================== */
+
+@import url('./design-tokens.css');
+@import url('./base.css');
+@import url('./components.css');
+@import url('./forms.css');
+@import url('./tables.css');
+@import url('./modals.css');
+@import url('./layout.css');
+@import url('./dashboard.css');
+@import url('./landing.css');
+@import url('./auth.css');
+@import url('./responsive.css');

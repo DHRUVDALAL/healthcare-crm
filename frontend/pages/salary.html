@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width,initial-scale=1" />
+ <title>Salary - Healthcare Recruitment CRM</title>
+ <meta name="description" content="Salary & Payroll" />
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/main.css" />
+</head>
+<body>
+ <div class="dashboard">
+ <aside class="sidebar" aria-label="Sidebar">
+  <a class="brand" href="../index.html">
+ <span class="brand-mark" aria-hidden="true"></span>
+ <span>HealthCRM</span>
+ </a>
+
+  <nav class="sidebar-nav" aria-label="Main navigation">
+  <a class="sidebar-nav-link" href="./dashboard.html">Dashboard</a>
+
+  <div class="sidebar-nav-item">
+    <button class="sidebar-nav-trigger" id="recruitment-trigger" aria-expanded="false" aria-controls="recruitment-children">
+      <span class="nav-label">Recruitment</span>
+      <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </button>
+    <div class="sidebar-nav-children" id="recruitment-children" role="list">
+      <a href="./hospitals.html" role="listitem">Hospitals</a>
+      <a href="./jobs.html" role="listitem">Jobs</a>
+      <a href="./applicants.html" role="listitem">Applicants</a>
+      <a href="./matching.html" role="listitem">Matching</a>
+      <a href="./pool.html" role="listitem">Pool Database</a>
+      <a href="./pipeline.html" role="listitem">Pipeline</a>
+      <a href="./interviews.html" role="listitem">Interviews</a>
+      <a href="./referrals.html" role="listitem">Referrals</a>
+    </div>
+  </div>
+
+  <div class="sidebar-nav-item">
+    <button class="sidebar-nav-trigger" id="finance-trigger" aria-expanded="true" aria-controls="finance-children">
+      <span class="nav-label">Finance</span>
+      <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </button>
+    <div class="sidebar-nav-children open" id="finance-children" role="list">
+      <a href="./invoices.html" role="listitem">Invoices</a>
+      <a class="active" href="./salary.html" role="listitem">Salary</a>
+      <a href="./reports.html" role="listitem">Reports</a>
+      <a href="./projections.html" role="listitem">Projections</a>
+    </div>
+  </div>
+
+  <div class="sidebar-nav-item">
+    <button class="sidebar-nav-trigger" id="hr-trigger" aria-expanded="false" aria-controls="hr-children">
+      <span class="nav-label">HR</span>
+      <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </button>
+    <div class="sidebar-nav-children" id="hr-children" role="list">
+      <a href="./employees.html" role="listitem">Employees</a>
+      <a href="./attendance.html" role="listitem">Attendance</a>
+      <a href="./leaves.html" role="listitem">Leaves</a>
+        <a href="./tasks.html" role="listitem">Tasks</a>
+        <a href="./performance.html" role="listitem">Performance</a>
+      </div>
+  </div>
+
+  <div class="sidebar-nav-item">
+    <button class="sidebar-nav-trigger" id="admin-trigger" aria-expanded="false" aria-controls="admin-children">
+      <span class="nav-label">Admin</span>
+      <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </button>
+    <div class="sidebar-nav-children" id="admin-children" role="list">
+      <a href="./settings.html" role="listitem">Settings</a>
+      <a href="./calendar.html" role="listitem">Calendar</a>
+    </div>
+  </div>
+
+  <a class="sidebar-nav-link" href="./settings.html">Settings</a>
+  <a class="sidebar-nav-link" href="javascript:void(0)" id="logoutBtn" data-logout>Logout</a>
+  </nav>
+
+  <div class="card" style="margin-top:auto;padding:16px" aria-label="Account">
+  <div class="small-muted">Signed in as</div>
+  <div style="font-weight:800;font-size:15px;margin-top:4px" id="userName">Loading...</div>
+  <div style="margin-top:6px">
+  <span class="badge" style="font-size:11px" id="userRole">-</span>
+  </div>
+  </div>
+  </aside>
+
+ <main class="main">
+  <div class="topbar" role="banner">
+  <div class="topbar-left">
+  <div>
+  <div class="topbar-title">Salary Management</div>
+  <div class="topbar-subtitle">Manage employee payroll and generate payslips.</div>
+  </div>
+  </div>
+  <div class="topbar-right">
+  <span class="pill">Role: <span id="topRole">-</span></span>
+  <button class="btn btn-primary" id="openAddBtn">Add Salary Record</button>
+  </div>
+ </div>
+
+ <div class="card" style="margin-top: 12px; padding: 14px;">
+ <div class="toolbar">
+ <div class="toolbar-left" style="flex-wrap: wrap;">
+ <select id="filterStatus" class="select" style="min-width: 130px;">
+ <option value="">All Statuses</option>
+ <option value="pending">Pending</option>
+ <option value="paid">Paid</option>
+ </select>
+ <input id="filterMonth" class="input" type="month" />
+ <input id="filterSearch" class="input" type="text" placeholder="Search employee..." style="min-width: 220px;" />
+ </div>
+ <div class="toolbar-right">
+ <span class="badge" id="statusBadge">Ready</span>
+ <button id="refreshBtn" class="btn btn-outline" type="button">Refresh</button>
+ </div>
+ </div>
+
+ <div style="overflow:auto; margin-top: 10px;">
+ <table class="table" aria-label="Salary table">
+ <thead>
+ <tr>
+ <th>Employee & Month</th>
+ <th>Base Salary</th>
+ <th>Bonus / Deductions</th>
+ <th>Net Payable</th>
+ <th>Status</th>
+ <th style="width: 200px;">Actions</th>
+ </tr>
+ </thead>
+ <tbody id="tableBody">
+ <tr><td colspan="6" class="small-muted">Loading salary records...</td></tr>
+ </tbody>
+ </table>
+ </div>
+ </div>
+
+ <!-- Add Salary Modal -->
+ <div id="modalOverlay" class="modal-overlay" aria-hidden="true">
+ <div class="modal modal-md" role="dialog" aria-modal="true" aria-label="Salary Form">
+ <form id="salaryForm">
+ <div class="modal-header">
+ <div>
+ <div class="modal-title">Create Salary Record</div>
+ <div class="small-muted">Generate a new monthly payroll record</div>
+ </div>
+ <button type="button" class="icon-btn" id="closeModalBtn" aria-label="Close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+ </div>
+<div class="modal-body">
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+
+<div class="form-group" style="grid-column: 1 / -1;">
+<label class="label">Employee <span style="color:var(--danger)"></span></label>
+<select id="empSelect" class="select" required>
+<option value="">Loading employees...</option>
+</select>
+</div>
+
+<div class="form-group">
+<label class="label">Salary Month <span style="color:var(--danger)"></span></label>
+<input class="input" type="month" id="salMonth" required />
+</div>
+
+<div class="form-group">
+<label class="label">Base Salary <span style="color:var(--danger)"></span></label>
+<input class="input" type="number" step="0.01" id="salBase" required />
+</div>
+
+<div class="form-group">
+<label class="label">Bonus</label>
+<input class="input" type="number" step="0.01" id="salBonus" value="0" />
+</div>
+
+<div class="form-group">
+<label class="label">Deductions</label>
+<input class="input" type="number" step="0.01" id="salDeductions" value="0" />
+</div>
+
+<div class="form-group" style="grid-column: 1 / -1;">
+<label class="label">Notes</label>
+<textarea class="input" id="salNotes" rows="2"></textarea>
+</div>
+
+</div>
+</div>
+ <div class="modal-footer">
+ <button type="button" class="btn btn-outline" id="cancelBtn">Cancel</button>
+ <button type="submit" class="btn btn-primary" id="saveBtn">Save Record</button>
+ </div>
+ </form>
+ </div>
+ </div>
+
+ </main>
+ </div>
+
+  <script src="../assets/js/api.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/salary.js"></script>
+  <script src="../assets/js/sidebar.js"></script>
+</body>
+</html>

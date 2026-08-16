@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width,initial-scale=1" />
+ <title>Login - Healthcare Recruitment CRM</title>
+ <meta name="description" content="Login to the Healthcare Recruitment CRM Portal" />
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="../assets/css/main.css" />
+</head>
+<body>
+ <div class="auth-layout">
+  <section class="auth-brand-panel">
+    <div class="auth-brand-content">
+      <div class="auth-brand-logo">
+        <div class="auth-brand-mark" aria-hidden="true"></div>
+      </div>
+      <h1 class="auth-brand-title">Healthcare Recruitment CRM</h1>
+      <p class="auth-brand-description">Run your staffing agency with enterprise-grade controls - from hospital onboarding to placement invoicing.</p>
+      <div class="auth-brand-features">
+        <div class="auth-brand-feature">
+          <div class="auth-brand-feature-icon" aria-hidden="true"></div>
+          <div class="auth-brand-feature-text">Hospital & job management</div>
+        </div>
+ <div class="auth-brand-feature">
+ <div class="auth-brand-feature-icon" aria-hidden="true"></div>
+ <div class="auth-brand-feature-text">Applicant pipeline visibility</div>
+ </div>
+ <div class="auth-brand-feature">
+ <div class="auth-brand-feature-icon" aria-hidden="true"></div>
+ <div class="auth-brand-feature-text">Matching and interview scheduling</div>
+ </div>
+        <div class="auth-brand-feature">
+          <div class="auth-brand-feature-icon" aria-hidden="true"></div>
+          <div class="auth-brand-feature-text">Invoice automation with payouts</div>
+        </div>
+      </div>
+      <div class="auth-preview-card">
+        <div class="auth-preview-header">
+          <div class="auth-preview-title">Executive snapshot</div>
+          <span class="badge" style="font-size:10px">Secure access</span>
+        </div>
+        <div class="auth-preview-grid">
+          <div class="auth-preview-stat">
+            <span class="auth-preview-stat-label">Active Jobs</span>
+            <span class="auth-preview-stat-value">14</span>
+          </div>
+          <div class="auth-preview-stat">
+            <span class="auth-preview-stat-label">Applicants</span>
+            <span class="auth-preview-stat-value">128</span>
+          </div>
+          <div class="auth-preview-stat">
+            <span class="auth-preview-stat-label">Revenue</span>
+            <span class="auth-preview-stat-value">₹2.45L</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="auth-form-panel">
+    <div class="auth-form-container">
+ <div class="auth-form-logo">
+ <span class="auth-form-logo-mark" aria-hidden="true"></span>
+ <span class="auth-form-logo-text">HealthCRM</span>
+ </div>
+
+      <div class="auth-form-header">
+        <div class="auth-form-title">Welcome back</div>
+        <div class="auth-form-subtitle">Sign in to access your executive dashboard</div>
+      </div>
+
+ <div id="alert" class="alert" role="alert"></div>
+
+ <form id="loginForm" class="auth-form">
+ <div class="auth-field">
+ <label for="email">Email Address</label>
+ <input id="email" type="email" class="input" autocomplete="username" placeholder="admin@crm.com" required />
+ </div>
+ <div class="auth-field">
+ <label for="password">Password</label>
+ <input id="password" type="password" class="input" autocomplete="current-password" placeholder="Enter password" required />
+ </div>
+ <button id="loginBtn" class="btn btn-primary auth-submit" type="submit">Sign In</button>
+ </form>
+
+      <div class="auth-credentials">
+        <div class="auth-credentials-text">Default admin: <strong>admin@crm.com</strong> / <strong>admin123</strong></div>
+      </div>
+
+      <div class="auth-footer">
+        <a href="../index.html">Back to landing page</a>
+      </div>
+      <div class="auth-footnote">Protected by JWT authentication and role-based access control.</div>
+    </div>
+  </section>
+ </div>
+
+ <script src="../assets/js/api.js"></script>
+ <script src="../assets/js/auth.js"></script>
+ <script src="../assets/js/login.js"></script>
+</body>
+</html>

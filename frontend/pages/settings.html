@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Settings - Healthcare Recruitment CRM</title>
+  <meta name="description" content="System settings" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/main.css" />
+</head>
+<body>
+  <div class="dashboard">
+    <aside class="sidebar" aria-label="Sidebar">
+      <a class="brand" href="../index.html">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>HealthCRM</span>
+      </a>
+
+  <nav class="sidebar-nav" aria-label="Main navigation">
+  <a class="sidebar-nav-link" href="./dashboard.html">Dashboard</a>
+
+  <div class="sidebar-nav-item">
+    <button class="sidebar-nav-trigger" id="recruitment-trigger" aria-expanded="false" aria-controls="recruitment-children">
+      <span class="nav-label">Recruitment</span>
+      <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </button>
+    <div class="sidebar-nav-children" id="recruitment-children" role="list">
+      <a href="./hospitals.html" role="listitem">Hospitals</a>
+      <a href="./jobs.html" role="listitem">Jobs</a>
+      <a href="./applicants.html" role="listitem">Applicants</a>
+      <a href="./matching.html" role="listitem">Matching</a>
+      <a href="./pool.html" role="listitem">Pool Database</a>
+      <a href="./pipeline.html" role="listitem">Pipeline</a>
+      <a href="./interviews.html" role="listitem">Interviews</a>
+      <a href="./referrals.html" role="listitem">Referrals</a>
+    </div>
+  </div>
+
+  <div class="sidebar-nav-item">
+    <button class="sidebar-nav-trigger" id="finance-trigger" aria-expanded="false" aria-controls="finance-children">
+      <span class="nav-label">Finance</span>
+      <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </button>
+    <div class="sidebar-nav-children" id="finance-children" role="list">
+      <a href="./invoices.html" role="listitem">Invoices</a>
+      <a href="./salary.html" role="listitem">Salary</a>
+      <a href="./reports.html" role="listitem">Reports</a>
+      <a href="./projections.html" role="listitem">Projections</a>
+    </div>
+  </div>
+
+  <div class="sidebar-nav-item">
+    <button class="sidebar-nav-trigger" id="hr-trigger" aria-expanded="false" aria-controls="hr-children">
+      <span class="nav-label">HR</span>
+      <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </button>
+    <div class="sidebar-nav-children" id="hr-children" role="list">
+      <a href="./employees.html" role="listitem">Employees</a>
+      <a href="./attendance.html" role="listitem">Attendance</a>
+      <a href="./leaves.html" role="listitem">Leaves</a>
+        <a href="./tasks.html" role="listitem">Tasks</a>
+        <a href="./performance.html" role="listitem">Performance</a>
+      </div>
+  </div>
+
+  <div class="sidebar-nav-item">
+    <button class="sidebar-nav-trigger" id="admin-trigger" aria-expanded="false" aria-controls="admin-children">
+      <span class="nav-label">Admin</span>
+      <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </button>
+    <div class="sidebar-nav-children" id="admin-children" role="list">
+      <a class="active" href="./settings.html" role="listitem">Settings</a>
+      <a href="./calendar.html" role="listitem">Calendar</a>
+    </div>
+  </div>
+
+  <a class="sidebar-nav-link" href="javascript:void(0)" id="logoutBtn" data-logout>Logout</a>
+
+      <div class="card sidebar-account" aria-label="Account">
+        <div class="sidebar-account-label">Signed in as</div>
+        <div class="sidebar-account-name" id="userName">Loading...</div>
+        <div class="sidebar-account-role">
+          <span class="badge" style="font-size:11px" id="userRole">-</span>
+        </div>
+        <a href="javascript:void(0)" class="btn btn-outline btn-sm sidebar-account-logout" data-logout>Logout</a>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="topbar" role="banner">
+        <div class="topbar-left">
+          <div>
+            <div class="topbar-title">Settings</div>
+            <div class="topbar-subtitle">Configure company profile, security, notifications, and integrations.</div>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <button class="btn btn-outline btn-sm" type="reset" form="settingsForm">Reset</button>
+          <button class="btn btn-primary btn-sm" type="submit" form="settingsForm">Save Changes</button>
+        </div>
+      </div>
+
+      <div class="page-shell">
+        <section class="page-header">
+          <div class="page-hero">
+            <div class="page-hero-copy">
+              <span class="page-kicker">System control center</span>
+              <div class="page-title">Manage the way your CRM behaves</div>
+              <div class="page-subtitle">Keep branding, access, and operational preferences aligned across your staffing teams.</div>
+            </div>
+            <span class="pill subtle">Last updated: Today</span>
+          </div>
+        </section>
+
+        <!-- MY PROFILE SECTION — visible to all roles -->
+        <div id="myProfileSection" style="margin-bottom:24px">
+          <div style="font-weight:800;font-size:20px;margin-bottom:16px">My Profile</div>
+
+          <div class="content-grid">
+            <!-- Left: Photo + Profile details -->
+            <div style="display:flex;flex-direction:column;gap:16px">
+              <!-- Avatar + Upload -->
+              <div class="card widget-card">
+                <div class="card-header">
+                  <div class="widget-title">Profile Photo</div>
+                  <div class="widget-subtitle">Upload your avatar. Max 2MB, JPG/PNG.</div>
+                </div>
+                <div class="card-body" style="display:flex;align-items:center;gap:20px">
+                  <img id="profileAvatarPreview" src="" alt="Avatar" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--border-default);background:var(--bg-muted)" onerror="this.style.display='none'" />
+                  <div>
+                    <input type="file" id="photoUploadInput" accept="image/jpeg,image/png" style="display:none" />
+                    <button type="button" class="btn btn-outline btn-sm" id="choosePhotoBtn">Choose Photo</button>
+                    <button type="button" class="btn btn-primary btn-sm" id="uploadPhotoBtn" style="margin-left:8px">Upload</button>
+                    <div class="small-muted" style="margin-top:8px" id="photoUploadStatus"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Profile Details -->
+              <div class="card widget-card">
+                <div class="card-header">
+                  <div class="widget-title">Personal Details</div>
+                  <div class="widget-subtitle">Update your display name and phone number.</div>
+                </div>
+                <div class="card-body">
+                  <form id="profileDetailsForm" style="display:grid;gap:12px">
+                    <div class="form-group">
+                      <label class="label">Full Name</label>
+                      <input class="input" type="text" id="profile_full_name" placeholder="Your full name" required />
+                    </div>
+                    <div class="form-group">
+                      <label class="label">Phone</label>
+                      <input class="input" type="text" id="profile_phone" placeholder="Mobile number" />
+                    </div>
+                    <div id="profileSaveAlert" style="color:var(--danger);font-size:13px;display:none"></div>
+                    <button type="submit" class="btn btn-primary" style="width:fit-content">Save Profile</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Preferences + Password -->
+            <div style="display:flex;flex-direction:column;gap:16px">
+              <!-- Notifications Prefs -->
+              <div class="card widget-card">
+                <div class="card-header">
+                  <div class="widget-title">Preferences</div>
+                  <div class="widget-subtitle">Configure notification settings.</div>
+                </div>
+                <div class="card-body">
+                  <form id="preferencesForm" style="display:grid;gap:14px">
+                    <div class="form-group">
+                      <label class="label">Notifications</label>
+                      <div style="display:grid;gap:8px;margin-top:6px">
+                        <label class="checkbox"><input type="checkbox" id="pref_interview_reminders" /> <span class="checkbox-label">Interview Reminders</span></label>
+                        <label class="checkbox"><input type="checkbox" id="pref_followup_alerts" /> <span class="checkbox-label">Follow-up Alerts</span></label>
+                        <label class="checkbox"><input type="checkbox" id="pref_task_alerts" /> <span class="checkbox-label">Task Due Alerts</span></label>
+                      </div>
+                    </div>
+                    <div id="preferencesSaveAlert" style="color:var(--danger);font-size:13px;display:none"></div>
+                    <button type="submit" class="btn btn-primary" style="width:fit-content">Save Preferences</button>
+                  </form>
+                </div>
+              </div>
+
+              <!-- Change Password -->
+              <div class="card widget-card">
+                <div class="card-header">
+                  <div class="widget-title">Change Password</div>
+                  <div class="widget-subtitle">Use a strong, unique password.</div>
+                </div>
+                <div class="card-body">
+                  <form id="changePasswordForm" style="display:grid;gap:12px">
+                    <div class="form-group">
+                      <label class="label">Current Password</label>
+                      <input class="input" type="password" id="current_password" placeholder="Current password" required />
+                    </div>
+                    <div class="form-group">
+                      <label class="label">New Password</label>
+                      <input class="input" type="password" id="new_password" placeholder="Min 8 characters" required />
+                    </div>
+                    <div class="form-group">
+                      <label class="label">Confirm New Password</label>
+                      <input class="input" type="password" id="confirm_password" placeholder="Re-enter new password" required />
+                    </div>
+                    <div id="passwordAlert" style="color:var(--danger);font-size:13px;display:none"></div>
+                    <button type="submit" class="btn btn-primary" style="width:fit-content">Update Password</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ADMIN-ONLY COMPANY SETTINGS -->
+        <div id="adminSettingsSection">
+        <div style="font-weight:800;font-size:20px;margin-bottom:16px">Company & System Settings</div>
+        
+        <!-- System Logo & Branding Box -->
+        <div class="card widget-card" style="margin-bottom:20px">
+          <div class="card-header">
+            <div>
+              <div class="widget-title">System Logo & Branding</div>
+              <div class="widget-subtitle">Upload the organization logo and specify the system name visible across all pages and logins.</div>
+            </div>
+          </div>
+          <div class="card-body" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center">
+            <div>
+              <label class="label" style="font-weight:700;margin-bottom:8px">System Logo</label>
+              <div style="display:flex;align-items:center;gap:16px">
+                <div style="width:70px;height:70px;border-radius:12px;border:2px dashed var(--border-default);display:flex;align-items:center;justify-content:center;background:var(--bg-muted);overflow:hidden">
+                  <img id="systemLogoPreview" src="" alt="System Logo" style="width:100%;height:100%;object-fit:contain;display:none" />
+                  <span id="systemLogoPlaceholder" style="font-size:11px;color:var(--text-muted);text-align:center">No Logo</span>
+                </div>
+                <div>
+                  <input type="file" id="systemLogoInput" accept="image/*" style="display:none" />
+                  <button type="button" class="btn btn-outline btn-sm" id="chooseSystemLogoBtn">Choose Logo</button>
+                  <button type="button" class="btn btn-primary btn-sm" id="uploadSystemLogoBtn" style="margin-left:6px">Upload Logo</button>
+                  <div class="small-muted" style="margin-top:6px" id="systemLogoStatus">Formats: PNG, JPG, SVG (Max 2MB)</div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="form-group">
+                <label class="label" style="font-weight:700">System Name (Displayed everywhere)</label>
+                <input class="input" type="text" id="system_name" placeholder="e.g. HealthCRM or My Agency CRM" style="font-size:15px;font-weight:600" />
+                <div class="small-muted" style="margin-top:4px">This name appears on the sidebar, header branding, page titles, and login page.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <form id="settingsForm" class="content-grid">
+          <div class="card widget-card">
+            <div class="card-header">
+              <div>
+                <div class="widget-title">Company profile</div>
+                <div class="widget-subtitle">Primary branding and billing details.</div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="label">Organization name</label>
+                  <input class="input" type="text" id="company_name" />
+                </div>
+                <div class="form-group">
+                  <label class="label">Timezone</label>
+                  <select class="select" id="timezone">
+                    <option value="Asia/Kolkata">Asia/Kolkata</option>
+                    <option value="Asia/Dubai">Asia/Dubai</option>
+                    <option value="UTC">UTC</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="label">Support email</label>
+                  <input class="input" type="email" id="support_email" />
+                </div>
+                <div class="form-group">
+                  <label class="label">Billing currency</label>
+                  <select class="select" id="billing_currency">
+                    <option value="INR">INR</option>
+                    <option value="USD">USD</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="label">Invoice prefix</label>
+                  <input class="input" type="text" id="invoice_prefix" />
+                </div>
+                <div class="form-group">
+                  <label class="label">Default commission %</label>
+                  <input class="input" type="number" id="commission_percentage" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <div class="card widget-card">
+              <div class="card-header">
+                <div>
+                  <div class="widget-title">Security</div>
+                  <div class="widget-subtitle">Protect access and session behavior.</div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="form-group">
+                  <label class="label">Session timeout</label>
+                  <select class="select" id="session_timeout">
+                    <option value="30 minutes">30 minutes</option>
+                    <option value="1 hour">1 hour</option>
+                    <option value="8 hours">8 hours</option>
+                  </select>
+                </div>
+                <div class="form-group" style="margin-top:12px;">
+                  <label class="label">Require OTP for admin logins</label>
+                  <select class="select" id="require_otp">
+                    <option value="Enabled">Enabled</option>
+                    <option value="Disabled">Disabled</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="card widget-card">
+              <div class="card-header">
+                <div>
+                  <div class="widget-title">Notifications</div>
+                  <div class="widget-subtitle">Choose what the team should see.</div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="form-group">
+                  <label class="checkbox"><input type="checkbox" id="interview_reminders" /> <span class="checkbox-label">Interview reminders</span></label>
+                  <label class="checkbox"><input type="checkbox" id="invoice_alerts" /> <span class="checkbox-label">Invoice alerts</span></label>
+                  <label class="checkbox"><input type="checkbox" id="new_applicant_notifications" /> <span class="checkbox-label">New applicant notifications</span></label>
+                </div>
+              </div>
+            </div>
+
+            <div class="card widget-card">
+              <div class="card-header">
+                <div>
+                  <div class="widget-title">Integrations</div>
+                  <div class="widget-subtitle">Connect the CRM with external tools.</div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="hero-preview-list">
+                  <div class="hero-preview-row"><strong>Email delivery</strong><span class="status success">Connected</span></div>
+                  <div class="hero-preview-row"><strong>Resume storage</strong><span class="status info">Configured</span></div>
+                  <div class="hero-preview-row"><strong>Calendar sync</strong><span class="status warning">Pending</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/js/api.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/settings.js"></script>
+  <script src="../assets/js/sidebar.js"></script>
+</body>
+</html>

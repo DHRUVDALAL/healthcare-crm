@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Candidate Assignment - Healthcare Recruitment CRM</title>
+  <meta name="description" content="Admin recruiter assignment planner" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/main.css" />
+  <style>
+    .assignment-grid {
+      display: grid;
+      grid-template-columns: 360px minmax(0, 1fr);
+      gap: 24px;
+      margin-top: 24px;
+      align-items: start;
+    }
+    .panel {
+      background: var(--bg-card, #fff);
+      border: 1px solid var(--border, #e2e8f0);
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      padding: 20px;
+    }
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+    .panel-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text);
+      margin: 0;
+    }
+    .candidate-list {
+      max-height: 600px;
+      overflow-y: auto;
+    }
+    .candidate-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 12px;
+      transition: all 0.2s ease;
+      background: #f8fafc;
+    }
+    .candidate-item:hover {
+      border-color: var(--primary);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    .candidate-details {
+      flex: 1;
+    }
+    .candidate-name {
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text);
+    }
+    .candidate-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .recruiter-table th, .recruiter-table td {
+      padding: 12px;
+      font-size: 13px;
+    }
+    .progress-bar-container {
+      background: var(--border);
+      border-radius: 4px;
+      height: 6px;
+      width: 100%;
+      margin-top: 4px;
+    }
+    .progress-bar-fill {
+      background: var(--primary);
+      border-radius: 4px;
+      height: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <aside class="sidebar" aria-label="Sidebar">
+      <a class="brand" href="../index.html">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>HealthCRM</span>
+      </a>
+
+      <nav class="sidebar-nav" aria-label="Main navigation">
+        <a class="sidebar-nav-link" href="./dashboard.html">Dashboard</a>
+
+        <div class="sidebar-nav-item">
+          <button class="sidebar-nav-trigger" id="recruitment-trigger" aria-expanded="true" aria-controls="recruitment-children">
+            <span class="nav-label">Recruitment</span>
+            <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="sidebar-nav-children open" id="recruitment-children" role="list">
+            <a href="./hospitals.html" role="listitem">Hospitals</a>
+            <a href="./jobs.html" role="listitem">Jobs</a>
+            <a href="./applicants.html" role="listitem">Applicants</a>
+            <a class="active" href="./assignment.html" role="listitem">Assignment</a>
+            <a href="./matching.html" role="listitem">Matching</a>
+            <a href="./pool.html" role="listitem">Pool Database</a>
+            <a href="./pipeline.html" role="listitem">Pipeline</a>
+            <a href="./interviews.html" role="listitem">Interviews</a>
+            <a href="./referrals.html" role="listitem">Referrals</a>
+          </div>
+        </div>
+
+        <div class="sidebar-nav-item">
+          <button class="sidebar-nav-trigger" id="finance-trigger" aria-expanded="false" aria-controls="finance-children">
+            <span class="nav-label">Finance</span>
+            <svg class="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="sidebar-nav-children" id="finance-children" role="list">
+            <a href="./invoices.html" role="listitem">Invoices</a>
+            <a href="./salary.html" role="listitem">Salary</a>
+            <a href="./reports.html" role="listitem">Reports</a>
+            <a href="./projections.html" role="listitem">Projections</a>
+          </div>
+        </div>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <div class="topbar" role="banner">
+        <div class="topbar-left">
+          <div>
+            <div class="topbar-title">Candidate Assignment Planner</div>
+            <div class="topbar-subtitle">Assign recruiter workloads, review team capacity & bulk reassign candidate pipelines.</div>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <button class="icon-btn" title="Notifications" aria-label="Notifications"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg></button>
+          <span class="pill">Role: <span id="topRole">-</span></span>
+          <div class="user-pill">
+            <span class="avatar">HC</span>
+            <div class="user-meta">
+              <div class="user-name" id="userName">Admin</div>
+              <div class="user-role" id="userRole">admin</div>
+            </div>
+          </div>
+          <button class="btn btn-danger btn-sm" type="button" id="logoutBtn" data-logout>Logout</button>
+        </div>
+      </div>
+        <!-- Main Actions Bar -->
+        <div class="panel" style="margin-bottom: 24px;">
+          <h3 style="margin-top:0; font-weight:800; margin-bottom: 16px;">Bulk Workload Actions</h3>
+          <div style="display: flex; gap: 16px; align-items: flex-end; flex-wrap: wrap;">
+            <div class="form-group" style="margin: 0; min-width: 200px;">
+              <label for="recruiterSelect" class="form-label">Assign Selected Candidates To:</label>
+              <select id="recruiterSelect" class="form-control">
+                <option value="">Select Recruiter...</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin: 0; min-width: 250px;">
+              <label for="reasonInput" class="form-label">Reason / Remark:</label>
+              <input type="text" id="reasonInput" class="form-control" placeholder="Optional audit reason..." />
+            </div>
+            <button id="btnAssignBulk" class="btn btn-primary">Assign Selected</button>
+            <button id="btnUnassignBulk" class="btn btn-outline">Remove Assignment</button>
+          </div>
+        </div>
+
+        <div class="assignment-grid">
+          <!-- Left Panel: Unassigned candidates -->
+          <div class="panel">
+            <div class="panel-header">
+              <h3 class="panel-title" id="unassignedCount">Unassigned Candidates (0)</h3>
+              <label style="font-size: 13px; font-weight:700; cursor:pointer; color:var(--primary);">
+                <input type="checkbox" id="selectAllCheckbox" style="margin-right:6px;" />Select All
+              </label>
+            </div>
+            <div class="candidate-list" id="unassignedList">
+              <div class="small-muted">Loading unassigned candidates...</div>
+            </div>
+          </div>
+
+          <!-- Right Panel: Recruiters Workload Stats -->
+          <div class="panel">
+            <div class="panel-header">
+              <h3 class="panel-title">Recruiter Active Workloads</h3>
+            </div>
+            <div class="table-responsive">
+              <table class="table recruiter-table">
+                <thead>
+                  <tr>
+                    <th>Recruiter Name</th>
+                    <th>Availability</th>
+                    <th>Current Load</th>
+                    <th>Monthly Target</th>
+                    <th>Workload %</th>
+                    <th>Monthly Placements</th>
+                    <th>Scheduled Interviews</th>
+                    <th>Open Tasks</th>
+                  </tr>
+                </thead>
+                <tbody id="workloadTableBody">
+                  <tr>
+                    <td colspan="8" class="small-muted">Loading workload data...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+  <script src="../assets/js/api.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/sidebar.js"></script>
+  <script src="../assets/js/assignment.js"></script>
+</body>
+</html>
