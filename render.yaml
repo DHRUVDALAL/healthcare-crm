@@ -13,29 +13,14 @@ services:
       - key: JWT_SECRET
         generateValue: true
       - key: DB_HOST
-        fromService:
-          type: pserv
-          name: recruitment-mysql
-          property: host
+        sync: false
       - key: DB_PORT
         value: "3306"
       - key: DB_USER
-        value: "crm_user"
+        sync: false
       - key: DB_PASSWORD
-        value: "crm_password_123"
+        sync: false
       - key: DB_NAME
-        value: "recruitment_crm"
-
-  - type: pserv
-    name: recruitment-mysql
-    env: docker
-    dockerfilePath: ./database/Dockerfile
-    envVars:
-      - key: MYSQL_ROOT_PASSWORD
-        value: "root_password_123"
-      - key: MYSQL_DATABASE
-        value: "recruitment_crm"
-      - key: MYSQL_USER
-        value: "crm_user"
-      - key: MYSQL_PASSWORD
-        value: "crm_password_123"
+        sync: false
+      - key: DB_SSL
+        value: "true"
