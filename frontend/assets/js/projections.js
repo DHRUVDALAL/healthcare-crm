@@ -183,8 +183,11 @@
       bindEvents();
       await Promise.all([loadHistory(), loadProgress()]);
     } catch (err) {
-      window.CRM_API.clearToken();
-      window.location.href = './login.html';
+      console.warn('[Projections] init warning:', err.message);
+      if (err.status === 401) {
+        window.CRM_API.clearToken();
+        window.location.href = './login.html';
+      }
     }
   }
 

@@ -276,8 +276,11 @@
       await loadEmployees();
       await loadReminders();
     } catch (err) {
-      window.CRM_API.clearToken();
-      window.location.href = './login.html';
+      console.warn('[Calendar] init warning:', err.message);
+      if (err.status === 401) {
+        window.CRM_API.clearToken();
+        window.location.href = './login.html';
+      }
     }
   }
 

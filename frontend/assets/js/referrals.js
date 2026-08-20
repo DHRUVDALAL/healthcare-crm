@@ -392,8 +392,11 @@
       bindEvents();
       await loadReferrals();
     } catch (err) {
-      window.CRM_API.clearToken();
-      window.location.href = './login.html';
+      console.warn('[Referrals] init warning:', err.message);
+      if (err.status === 401) {
+        window.CRM_API.clearToken();
+        window.location.href = './login.html';
+      }
     }
   }
 

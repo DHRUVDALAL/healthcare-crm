@@ -330,12 +330,14 @@
   async function init() {
     try {
       await loadProfile();
-      await loadJobs();
       bindEvents();
-      setStatus('Ready');
+      await loadJobs();
     } catch (err) {
-      window.CRM_API.clearToken();
-      window.location.href = './login.html';
+      console.warn('[Matching] init warning:', err.message);
+      if (err.status === 401) {
+        window.CRM_API.clearToken();
+        window.location.href = './login.html';
+      }
     }
   }
 

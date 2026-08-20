@@ -898,12 +898,14 @@ function escapeHtml(str) {
   async function init() {
     try {
       await loadProfile();
-      await loadJobs();
       bindEvents();
       await loadApplicants();
     } catch (err) {
-      window.CRM_API.clearToken();
-      window.location.href = './login.html';
+      console.warn('[Applicants] init warning:', err.message);
+      if (err.status === 401) {
+        window.CRM_API.clearToken();
+        window.location.href = './login.html';
+      }
     }
   }
 

@@ -257,11 +257,13 @@
     try {
       await loadProfile();
       bindEvents();
-      await loadEmployeesForSelect();
       await loadSalaries();
     } catch (err) {
-      window.CRM_API.clearToken();
-      window.location.href = './login.html';
+      console.warn('[Salary] init warning:', err.message);
+      if (err.status === 401) {
+        window.CRM_API.clearToken();
+        window.location.href = './login.html';
+      }
     }
   }
 

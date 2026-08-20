@@ -310,11 +310,13 @@
     try {
       await loadProfile();
       bindEvents();
-      await loadPermissions();
       await loadRoles();
     } catch (err) {
-      window.CRM_API.clearToken();
-      window.location.href = './login.html';
+      console.warn('[Roles] init warning:', err.message);
+      if (err.status === 401) {
+        window.CRM_API.clearToken();
+        window.location.href = './login.html';
+      }
     }
   }
 

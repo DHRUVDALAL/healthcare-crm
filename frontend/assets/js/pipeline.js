@@ -259,10 +259,13 @@
     try {
       await loadProfile();
       bindEvents();
-      await loadPipeline();
+      await loadJobs();
     } catch (err) {
-      window.CRM_API.clearToken();
-      window.location.href = './login.html';
+      console.warn('[Pipeline] init warning:', err.message);
+      if (err.status === 401) {
+        window.CRM_API.clearToken();
+        window.location.href = './login.html';
+      }
     }
   }
 

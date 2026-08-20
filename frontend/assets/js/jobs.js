@@ -388,12 +388,14 @@
   async function init() {
     try {
       await loadProfile();
-      await loadHospitalsForDropdowns();
       bindEvents();
       await loadJobs();
     } catch (err) {
-      window.CRM_API.clearToken();
-      window.location.href = './login.html';
+      console.warn('[Jobs] init warning:', err.message);
+      if (err.status === 401) {
+        window.CRM_API.clearToken();
+        window.location.href = './login.html';
+      }
     }
   }
 
