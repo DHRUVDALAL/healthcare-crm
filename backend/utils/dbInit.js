@@ -287,6 +287,129 @@ async function initDb() {
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
   `);
 
+  // Create invoices table
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS invoices (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      invoice_number VARCHAR(64) NOT NULL UNIQUE,
+      hospital_id INT NOT NULL,
+      applicant_id INT NOT NULL,
+      job_id INT NOT NULL,
+      candidate_salary DECIMAL(12,2) NOT NULL DEFAULT 0.00,
+      commission_percentage DECIMAL(5,2) NOT NULL DEFAULT 0.00,
+      invoice_amount DECIMAL(12,2) NOT NULL DEFAULT 0.00,
+      invoice_date DATE NOT NULL,
+      due_date DATE NOT NULL,
+      payment_status ENUM('pending','partially_paid','paid','overdue','cancelled') NOT NULL DEFAULT 'pending',
+      payment_received_date DATE NULL,
+      notes TEXT NULL,
+      created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+      KEY idx_invoices_hospital (hospital_id),
+      KEY idx_invoices_applicant (applicant_id),
+      KEY idx_invoices_job (job_id),
+      KEY idx_invoices_status (payment_status),
+      CONSTRAINT fk_invoices_hospital FOREIGN KEY (hospital_id) REFERENCES hospitals(id) ON DELETE RESTRICT,
+      CONSTRAINT fk_invoices_applicant FOREIGN KEY (applicant_id) REFERENCES applicants(id) ON DELETE RESTRICT,
+      CONSTRAINT fk_invoices_job FOREIGN KEY (job_id) REFERENCES jobs(id) ON DELETE RESTRICT
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `);
+
+  // Create invoice_payments table
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS invoice_payments (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      invoice_id INT NOT NULL,
+      amount DECIMAL(12,2) NOT NULL,
+      payment_date DATE NOT NULL,
+      payment_method VARCHAR(64) NULL,
+      transaction_reference VARCHAR(128) NULL,
+      notes TEXT NULL,
+      created_by INT NULL,
+      created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      KEY idx_invpay_invoice (invoice_id),
+      CONSTRAINT fk_invoice_payments_invoice FOREIGN KEY (invoice_id) REFERENCES invoices(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `);
+
+  // Create referral_rewards table
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS referral_rewards (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      applicant_id INT NOT NULL,
+      referrer_name VARCHAR(140) NOT NULL,
+      referrer_contact VARCHAR(80) NULL,
+      reward_amount DECIMAL(12,2) NOT NULL DEFAULT 5000.00,
+      reward_status ENUM('pending','eligible','rewarded','cancelled') NOT NULL DEFAULT 'pending',
+      reward_paid_date DATE NULL,
+      notes TEXT NULL,
+      created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+      KEY idx_rr_applicant (applicant_id),
+      KEY idx_rr_status (reward_status),
+      CONSTRAINT fk_rr_applicant FOREIGN KEY (applicant_id) REFERENCES applicants(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `);
+
+  // Create leaves table
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS leaves (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      user_id INT NOT NULL,
+      leave_type ENUM('sick','casual','paid','emergency','earned','wfh','compensatory') NOT NULL DEFAULT 'casual',
+      start_date DATE NOT NULL,
+      end_date DATE NOT NULL,
+      total_days INT NOT NULL DEFAULT 1,
+      reason TEXT NOT NULL,
+      status ENUM('pending','approved','rejected') NOT NULL DEFAULT 'pending',
+      approved_by INT NULL,
+      created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+      KEY idx_leaves_user (user_id),
+      KEY idx_leaves_status (status),
+      CONSTRAINT fk_leaves_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `);
+
+  // Create salary_records table
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS salary_records (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      user_id INT NOT NULL,
+      month VARCHAR(7) NOT NULL,
+      basic_salary DECIMAL(10,2) NOT NULL,
+      allowances DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+      deductions DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+      net_salary DECIMAL(10,2) NOT NULL,
+      payment_date DATE NULL,
+      status ENUM('pending','processed','paid') NOT NULL DEFAULT 'pending',
+      remarks TEXT NULL,
+      created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+      UNIQUE KEY uq_salary_user_month (user_id, month),
+      CONSTRAINT fk_salary_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `);
+
+  // Create calendar_events table
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS calendar_events (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      title VARCHAR(200) NOT NULL,
+      description TEXT NULL,
+      event_date DATE NOT NULL,
+      event_time TIME NULL,
+      event_type ENUM('interview','followup','meeting','deadline','reminder','other') NOT NULL DEFAULT 'other',
+      entity_type ENUM('applicant','job','hospital','general') NOT NULL DEFAULT 'general',
+      entity_id INT NULL,
+      created_by INT NOT NULL,
+      created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      KEY idx_calevents_date (event_date),
+      KEY idx_calevents_creator (created_by),
+      CONSTRAINT fk_calevents_creator FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `);
+
   // Seed default settings
   const defaults = {
     company_name: 'HealthCRM Staffing',
