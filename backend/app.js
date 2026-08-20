@@ -70,6 +70,9 @@ const clientDemoRoutes = require('./routes/clientDemoRoutes');
 
 const app = express();
 
+// Trust reverse proxy headers (Render, Heroku, AWS, Nginx) for express-rate-limit and IP detection
+app.set('trust proxy', 1);
+
 app.disable('x-powered-by');
 
 app.use(helmet({
