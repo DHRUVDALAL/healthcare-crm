@@ -17,6 +17,72 @@ async function initDb() {
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
   `);
 
+  // Ensure users table extended columns exist
+  await pool.query(`ALTER TABLE users ADD COLUMN phone VARCHAR(32) NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE users ADD COLUMN department VARCHAR(120) NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE users ADD COLUMN designation VARCHAR(120) NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE users ADD COLUMN joining_date DATE NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE users ADD COLUMN emergency_contact VARCHAR(80) NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE users ADD COLUMN address TEXT NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE users ADD COLUMN photo_path VARCHAR(500) NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE users ADD COLUMN theme VARCHAR(30) NOT NULL DEFAULT 'light'`).catch(() => {});
+  await pool.query(`ALTER TABLE users ADD COLUMN notification_preferences TEXT NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE users ADD COLUMN bank_name VARCHAR(160) NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE users ADD COLUMN bank_account_no VARCHAR(80) NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE users ADD COLUMN ifsc_code VARCHAR(40) NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE users ADD COLUMN pan_number VARCHAR(20) NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE users ADD COLUMN aadhar_number VARCHAR(20) NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE users ADD COLUMN custom_role_id INT NULL`).catch(() => {});
+
+  // Ensure applicants table extended columns exist
+  await pool.query(`ALTER TABLE applicants ADD COLUMN assigned_recruiter_id INT NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE applicants ADD COLUMN available_from DATE NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE applicants ADD COLUMN attended_by INT NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE applicants ADD COLUMN assignment_status ENUM('Unassigned', 'Assigned', 'Transferred', 'Completed', 'Archived') NOT NULL DEFAULT 'Unassigned'`).catch(() => {});
+  await pool.query(`ALTER TABLE applicants ADD COLUMN priority ENUM('high', 'medium', 'low') NOT NULL DEFAULT 'medium'`).catch(() => {});
+  await pool.query(`ALTER TABLE applicants ADD COLUMN preferred_hospital_id INT NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE applicants ADD COLUMN offer_letter_path VARCHAR(500) NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE applicants ADD COLUMN preferred_location VARCHAR(140) NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE applicants ADD COLUMN current_ctc DECIMAL(12,2) NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE applicants ADD COLUMN expected_ctc DECIMAL(12,2) NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE applicants ADD COLUMN notice_period VARCHAR(80) NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE applicants ADD COLUMN source VARCHAR(80) NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE applicants ADD COLUMN referred_by VARCHAR(140) NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE applicants ADD COLUMN referral_contact VARCHAR(80) NULL`).catch(() => {});
+
+  // Ensure jobs table extended columns exist
+  await pool.query(`ALTER TABLE jobs ADD COLUMN filled_count INT NOT NULL DEFAULT 0`).catch(() => {});
+  await pool.query(`ALTER TABLE jobs ADD COLUMN expiry_date DATE NULL`).catch(() => {});
+
+  // Ensure hospitals table extended columns exist
+  await pool.query(`ALTER TABLE hospitals ADD COLUMN onboarding_status ENUM('prospecting','negotiation','signed','active','inactive') NOT NULL DEFAULT 'active'`).catch(() => {});
+
+  // Ensure invoices table extended columns exist
+  await pool.query(`ALTER TABLE invoices ADD COLUMN fee_type ENUM('percentage', 'fixed') NOT NULL DEFAULT 'percentage'`).catch(() => {});
+  await pool.query(`ALTER TABLE invoices ADD COLUMN fixed_fee_amount DECIMAL(12,2) NULL DEFAULT 0.00`).catch(() => {});
+  await pool.query(`ALTER TABLE invoices ADD COLUMN subtotal DECIMAL(12,2) NULL DEFAULT 0.00`).catch(() => {});
+  await pool.query(`ALTER TABLE invoices ADD COLUMN gst_percentage DECIMAL(5,2) NULL DEFAULT 0.00`).catch(() => {});
+  await pool.query(`ALTER TABLE invoices ADD COLUMN gst_amount DECIMAL(12,2) NULL DEFAULT 0.00`).catch(() => {});
+  await pool.query(`ALTER TABLE invoices ADD COLUMN paid_amount DECIMAL(12,2) NULL DEFAULT 0.00`).catch(() => {});
+  await pool.query(`ALTER TABLE invoices ADD COLUMN payment_method VARCHAR(64) NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE invoices ADD COLUMN transaction_reference VARCHAR(128) NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE invoices ADD COLUMN created_by INT NULL`).catch(() => {});
+
+  // Ensure tasks table extended columns exist
+  await pool.query(`ALTER TABLE tasks ADD COLUMN estimated_hours DECIMAL(5,2) NULL DEFAULT 0.00`).catch(() => {});
+  await pool.query(`ALTER TABLE tasks ADD COLUMN actual_hours DECIMAL(5,2) NULL DEFAULT 0.00`).catch(() => {});
+  await pool.query(`ALTER TABLE tasks ADD COLUMN is_archived TINYINT(1) NOT NULL DEFAULT 0`).catch(() => {});
+  await pool.query(`ALTER TABLE tasks ADD COLUMN category VARCHAR(64) NULL DEFAULT 'recruitment'`).catch(() => {});
+  await pool.query(`ALTER TABLE tasks ADD COLUMN completion_percentage INT NOT NULL DEFAULT 0`).catch(() => {});
+
+  // Ensure employee logs table extended columns exist
+  await pool.query(`ALTER TABLE employee_logs ADD COLUMN attendance_status ENUM('present','absent','half_day','on_leave','remote','holiday') NULL`).catch(() => {});
+
+  // Ensure salary records table extended columns exist
+  await pool.query(`ALTER TABLE salary_records ADD COLUMN tax DECIMAL(10,2) NOT NULL DEFAULT 0.00`).catch(() => {});
+  await pool.query(`ALTER TABLE salary_records ADD COLUMN pf DECIMAL(10,2) NOT NULL DEFAULT 0.00`).catch(() => {});
+  await pool.query(`ALTER TABLE salary_records ADD COLUMN esi DECIMAL(10,2) NOT NULL DEFAULT 0.00`).catch(() => {});
+
   await pool.query(`
     CREATE TABLE IF NOT EXISTS employee_logs (
       id INT AUTO_INCREMENT PRIMARY KEY,
