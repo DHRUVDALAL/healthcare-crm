@@ -11,7 +11,7 @@ services:
       - key: NODE_ENV
         value: production
       - key: JWT_SECRET
-        generateValue: true
+        value: "recruitment_crm_super_secure_production_jwt_secret_2026"
       - key: DB_HOST
         value: "mysql-2ba4ebc3-dhruvadalal-5f81.k.aivencloud.com"
       - key: DB_PORT

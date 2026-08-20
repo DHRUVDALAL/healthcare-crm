@@ -335,9 +335,11 @@
         await loadStats();
       }
     } catch (err) {
-      // Token likely invalid
-      window.CRM_API.clearToken();
-      window.location.href = './login.html';
+      console.warn('[Dashboard] safeInit warning:', err.message);
+      if (err.status === 401) {
+        window.CRM_API.clearToken();
+        window.location.href = './login.html';
+      }
     }
   }
 

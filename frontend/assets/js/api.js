@@ -49,6 +49,15 @@
       const err = new Error(msg);
       err.status = res.status;
       err.body = body;
+
+      if (res.status === 401 && !path.includes('/api/auth/login')) {
+        clearToken();
+        const currentLoc = window.location.pathname.toLowerCase();
+        if (!currentLoc.includes('login.html')) {
+          window.location.href = './login.html';
+        }
+      }
+
       throw err;
     }
 
