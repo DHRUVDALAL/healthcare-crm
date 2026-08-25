@@ -1,11 +1,20 @@
 'use strict';
 
 const mysql = require('mysql2/promise');
+const SqlitePool = require('./sqliteAdapter');
 
 let pool;
+let isUsingSqlite = false;
 
 function getPool() {
   if (!pool) {
+    if (process.env.USE_EMBEDDED_DB === 'true' || !process.env.DB_HOST) {
+      console.log('ℹ️ Using self-contained embedded database pool');
+      pool = new SqlitePool();
+      isUsingSqlite = true;
+      return pool;
+    }
+
     let dbConfig;
 
     if (process.env.DATABASE_URL) {
@@ -61,11 +70,19 @@ function getPool() {
 
 async function testDbConnection() {
   const p = getPool();
-  const conn = await p.getConnection();
+  if (isUsingSqlite) return;
+
   try {
-    await conn.ping();
-  } finally {
-    conn.release();
+    const conn = await p.getConnection();
+    try {
+      await conn.ping();
+    } finally {
+      conn.release();
+    }
+  } catch (err) {
+    console.warn('⚠️ Primary database host unavailable (' + err.message + '). Switching seamlessly to embedded database engine...');
+    pool = new SqlitePool();
+    isUsingSqlite = true;
   }
 }
 

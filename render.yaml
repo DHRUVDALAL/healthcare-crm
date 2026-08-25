@@ -12,15 +12,5 @@ services:
         value: production
       - key: JWT_SECRET
         value: "recruitment_crm_super_secure_production_jwt_secret_2026"
-      - key: DB_HOST
-        value: "mysql-2ba4ebc3-dhruvadalal-5f81.k.aivencloud.com"
-      - key: DB_PORT
-        value: "24978"
-      - key: DB_USER
-        value: "avnadmin"
-      - key: DB_PASSWORD
-        sync: false
-      - key: DB_NAME
-        value: "defaultdb"
-      - key: DB_SSL
+      - key: USE_EMBEDDED_DB
         value: "true"
