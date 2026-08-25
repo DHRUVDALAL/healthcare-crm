@@ -220,8 +220,11 @@ async function downloadInvoice(req, res) {
 </body>
 </html>`;
 
+    if (req.headers.accept && req.headers.accept.includes('application/json')) {
+      return ok(res, { html, invoice: row }, 'Invoice generated');
+    }
+
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    res.setHeader('Content-Disposition', `attachment; filename="invoice_${row.invoice_number}.html"`);
     return res.send(html);
   } catch (err) {
     return fail(res, 500, 'Failed to generate invoice');

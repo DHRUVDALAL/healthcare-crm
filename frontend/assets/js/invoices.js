@@ -205,6 +205,12 @@
       setStatus('Generating PDF...', 'warn');
       const res = await window.CRM_API.request(`/api/invoices/download/${id}`);
       
+      const htmlContent = (res && res.data && res.data.html) ? res.data.html : (typeof res === 'string' ? res : '');
+      
+      if (!htmlContent) {
+        throw new Error('Invoice PDF template unavailable');
+      }
+
       const newWin = window.open('', '_blank');
       if (!newWin) {
         alert('Please allow popups for this site');
@@ -212,11 +218,11 @@
       }
       
       newWin.document.open();
-      newWin.document.write(res.data.html);
+      newWin.document.write(htmlContent);
       newWin.document.close();
       
       setTimeout(() => {
-        newWin.print();
+        try { newWin.print(); } catch (e) {}
       }, 500);
 
       setStatus('Invoice generated', 'ok');

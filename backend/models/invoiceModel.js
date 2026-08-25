@@ -64,9 +64,9 @@ class InvoiceModel {
   static async create(payload, conn = null) {
     const pool = conn || getPool();
 
-    const candidateSalary = Number(payload.candidate_salary || 0);
+    const candidateSalary = Number(payload.candidate_salary || payload.candidate_annual_ctc || 0);
     const feeType = payload.fee_type === 'fixed' ? 'fixed' : 'percentage';
-    const feePct = Number(payload.commission_percentage || payload.fee_percentage || 0);
+    const feePct = Number(payload.commission_percentage || payload.placement_fee_percentage || payload.fee_percentage || 0);
     const fixedFee = Number(payload.fixed_fee_amount || 0);
 
     let subtotal = Number(payload.subtotal || 0);
