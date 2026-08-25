@@ -203,9 +203,18 @@
   async function downloadInvoice(id) {
     try {
       setStatus('Generating PDF...', 'warn');
-      const res = await window.CRM_API.request(`/api/invoices/download/${id}`);
+      const res = await window.CRM_API.request(`/api/invoices/download/${id}`, {
+        headers: { Accept: 'application/json' }
+      });
       
-      const htmlContent = (res && res.data && res.data.html) ? res.data.html : (typeof res === 'string' ? res : '');
+      let htmlContent = '';
+      if (res && res.data && res.data.html) {
+        htmlContent = res.data.html;
+      } else if (res && res.message && typeof res.message === 'string' && res.message.includes('<html')) {
+        htmlContent = res.message;
+      } else if (typeof res === 'string') {
+        htmlContent = res;
+      }
       
       if (!htmlContent) {
         throw new Error('Invoice PDF template unavailable');
