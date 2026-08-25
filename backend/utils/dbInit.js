@@ -466,6 +466,15 @@ async function initDb() {
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
   `);
 
+  await pool.query(`ALTER TABLE salary_records ADD COLUMN user_id INT NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE salary_records ADD COLUMN employee_id INT NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE salary_records ADD COLUMN salary_month VARCHAR(20) NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE salary_records ADD COLUMN base_salary DECIMAL(10,2) NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE salary_records ADD COLUMN bonus DECIMAL(10,2) NULL DEFAULT 0.00`).catch(() => {});
+  await pool.query(`ALTER TABLE salary_records ADD COLUMN final_salary DECIMAL(10,2) NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE salary_records ADD COLUMN payment_status VARCHAR(50) NOT NULL DEFAULT 'pending'`).catch(() => {});
+  await pool.query(`ALTER TABLE salary_records ADD COLUMN notes TEXT NULL`).catch(() => {});
+
   // Create calendar_events table
   await pool.query(`
     CREATE TABLE IF NOT EXISTS calendar_events (
