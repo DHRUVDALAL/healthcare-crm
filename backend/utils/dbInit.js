@@ -22,8 +22,11 @@ async function initDb() {
   await pool.query(`ALTER TABLE users ADD COLUMN department VARCHAR(120) NULL`).catch(() => {});
   await pool.query(`ALTER TABLE users ADD COLUMN designation VARCHAR(120) NULL`).catch(() => {});
   await pool.query(`ALTER TABLE users ADD COLUMN joining_date DATE NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE users ADD COLUMN monthly_salary DECIMAL(12,2) NULL`).catch(() => {});
   await pool.query(`ALTER TABLE users ADD COLUMN emergency_contact VARCHAR(80) NULL`).catch(() => {});
   await pool.query(`ALTER TABLE users ADD COLUMN address TEXT NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE users ADD COLUMN status ENUM('active','inactive') NOT NULL DEFAULT 'active'`).catch(() => {});
+  await pool.query(`ALTER TABLE users ADD COLUMN notes TEXT NULL`).catch(() => {});
   await pool.query(`ALTER TABLE users ADD COLUMN photo_path VARCHAR(500) NULL`).catch(() => {});
   await pool.query(`ALTER TABLE users ADD COLUMN theme VARCHAR(30) NOT NULL DEFAULT 'light'`).catch(() => {});
   await pool.query(`ALTER TABLE users ADD COLUMN notification_preferences TEXT NULL`).catch(() => {});

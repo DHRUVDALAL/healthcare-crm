@@ -98,7 +98,14 @@ class SqlitePool {
       }
     } catch (err) {
       if (isSelect) return [[], []];
-      return [{ insertId: 0, affectedRows: 0 }, []];
+      if (err.message && err.message.includes('duplicate column name')) {
+        return [{ insertId: 0, affectedRows: 0 }, []];
+      }
+      if (err.message && err.message.includes('already exists')) {
+        return [{ insertId: 0, affectedRows: 0 }, []];
+      }
+      console.warn('SQLite Execution Warning:', err.message, '| Query:', transformed.slice(0, 100));
+      throw err;
     }
   }
 
