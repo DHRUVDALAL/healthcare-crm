@@ -1,13 +1,34 @@
 'use strict';
 
-const sqlite3 = require('sqlite3').verbose();
+const initSqlJs = require('sql.js');
+const fs = require('fs');
 const path = require('path');
 
 class SqlitePool {
   constructor(dbPath) {
     this.dbPath = dbPath || path.join(__dirname, '..', 'crm.sqlite');
-    this.db = new sqlite3.Database(this.dbPath);
-    this.db.run('PRAGMA foreign_keys = OFF;');
+    this.ready = this.init();
+  }
+
+  async init() {
+    const SQL = await initSqlJs();
+    let filebuffer = null;
+    if (fs.existsSync(this.dbPath)) {
+      try {
+        filebuffer = fs.readFileSync(this.dbPath);
+      } catch (e) {}
+    }
+    this.db = new SQL.Database(filebuffer);
+  }
+
+  save() {
+    try {
+      if (this.db) {
+        const data = this.db.export();
+        const buffer = Buffer.from(data);
+        fs.writeFileSync(this.dbPath, buffer);
+      }
+    } catch (e) {}
   }
 
   transformSql(sql) {
@@ -45,23 +66,35 @@ class SqlitePool {
     return s;
   }
 
-  query(sql, params = []) {
-    return new Promise((resolve, reject) => {
-      const transformed = this.transformSql(sql);
-      const isSelect = /^\s*(SELECT|PRAGMA|EXPLAIN|SHOW)/i.test(transformed);
+  async query(sql, params = []) {
+    await this.ready;
+    const transformed = this.transformSql(sql);
+    const isSelect = /^\s*(SELECT|PRAGMA|EXPLAIN|SHOW)/i.test(transformed);
 
+    try {
       if (isSelect) {
-        this.db.all(transformed, params || [], (err, rows) => {
-          if (err) return reject(err);
-          resolve([rows || [], []]);
-        });
+        const stmt = this.db.prepare(transformed);
+        if (params && params.length) {
+          stmt.bind(params);
+        }
+        const rows = [];
+        while (stmt.step()) {
+          rows.push(stmt.getAsObject());
+        }
+        stmt.free();
+        return [rows, []];
       } else {
-        this.db.run(transformed, params || [], function (err) {
-          if (err) return resolve([{ insertId: 0, affectedRows: 0 }, []]);
-          resolve([{ insertId: this.lastID, affectedRows: this.changes }, []]);
-        });
+        this.db.run(transformed, params || []);
+        this.save();
+        const res = this.db.exec("SELECT last_insert_rowid() as id, changes() as affected");
+        const insertId = res[0] && res[0].values[0] ? res[0].values[0][0] : 0;
+        const affectedRows = res[0] && res[0].values[0] ? res[0].values[0][1] : 0;
+        return [{ insertId, affectedRows }, []];
       }
-    });
+    } catch (err) {
+      if (isSelect) return [[], []];
+      return [{ insertId: 0, affectedRows: 0 }, []];
+    }
   }
 
   async execute(sql, params = []) {
@@ -69,6 +102,7 @@ class SqlitePool {
   }
 
   async getConnection() {
+    await this.ready;
     return {
       query: (sql, params) => this.query(sql, params),
       execute: (sql, params) => this.execute(sql, params),
