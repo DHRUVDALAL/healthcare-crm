@@ -330,8 +330,8 @@
   async function init() {
     try {
       await loadProfile();
-      bindEvents();
       await loadJobs();
+      bindEvents();
     } catch (err) {
       console.warn('[Matching] init warning:', err.message);
       if (err.status === 401) {

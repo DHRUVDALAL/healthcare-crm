@@ -309,6 +309,7 @@
   async function init() {
     try {
       await loadProfile();
+      await loadPermissions();
       bindEvents();
       await loadRoles();
     } catch (err) {

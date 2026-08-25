@@ -898,6 +898,7 @@ function escapeHtml(str) {
   async function init() {
     try {
       await loadProfile();
+      await loadJobs();
       bindEvents();
       await loadApplicants();
     } catch (err) {

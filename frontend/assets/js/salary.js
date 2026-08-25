@@ -256,6 +256,7 @@
   async function init() {
     try {
       await loadProfile();
+      await loadEmployeesForSelect();
       bindEvents();
       await loadSalaries();
     } catch (err) {

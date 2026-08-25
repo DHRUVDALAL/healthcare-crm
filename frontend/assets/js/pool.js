@@ -593,6 +593,7 @@
   async function init() {
     try {
       await loadProfile();
+      await loadJobs();
       bindEvents();
       await loadPoolData();
     } catch (err) {

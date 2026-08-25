@@ -417,6 +417,7 @@
   async function init() {
     try {
       await loadProfile();
+      await loadDropdowns();
       bindEvents();
       await loadInvoices();
     } catch (err) {

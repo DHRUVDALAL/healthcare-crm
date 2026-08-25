@@ -388,6 +388,7 @@
   async function init() {
     try {
       await loadProfile();
+      await loadHospitalsForDropdowns();
       bindEvents();
       await loadJobs();
     } catch (err) {
