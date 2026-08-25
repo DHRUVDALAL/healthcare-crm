@@ -1,8 +1,8 @@
 
 # HealthCRM Enterprise QA & Test Automation Report
 
-> **Generated At**: 2026-08-25T19:42:40.434Z  
-> **Execution Duration**: 4807ms  
+> **Generated At**: 2026-08-25T19:50:58.724Z  
+> **Execution Duration**: 4871ms  
 > **Status**: ✓ PRODUCTION READY
 
 ---
@@ -11,11 +11,11 @@
 
 | Test Suite | Status | Duration | Coverage Target |
 | :--- | :---: | :---: | :--- |
-| **Database Schema Tests** | 🟢 PASSED | 15ms | 22 schema tables structure validation |
-| **REST API Endpoint Tests** | 🟢 PASSED | 715ms | Authentication, Route guards, RBAC |
+| **Database Schema Tests** | 🟢 PASSED | 18ms | 22 schema tables structure validation |
+| **REST API Endpoint Tests** | 🟢 PASSED | 714ms | Authentication, Route guards, RBAC |
 | **Recruitment Workflow Tests**| 🟢 PASSED | 202ms | E2E Hospital -> Job -> Applicant -> Match -> Pipeline |
-| **UI Template & Layout Tests** | 🟢 PASSED | 10ms | 21 pages script dependencies, layout markers |
-| **Security Vulnerability Tests**| 🟢 PASSED | 5ms | SQL injection probes, Helmet headers, Bcrypt checks |
+| **UI Template & Layout Tests** | 🟢 PASSED | 8ms | 21 pages script dependencies, layout markers |
+| **Security Vulnerability Tests**| 🟢 PASSED | 4ms | SQL injection probes, Helmet headers, Bcrypt checks |
 
 ---
 
