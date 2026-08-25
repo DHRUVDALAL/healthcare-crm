@@ -68,21 +68,38 @@
               }
             }
           } else if (user.role === 'employee') {
-            // Hide Finance section completely
+            // 1. Hide Finance section completely
             const financeTrigger = document.getElementById('finance-trigger');
             if (financeTrigger) {
               const parent = financeTrigger.closest('.sidebar-nav-item');
               if (parent) parent.style.display = 'none';
             }
 
-            // Hide Employees link under HR
-            const hrChildren = document.getElementById('hr-children');
-            if (hrChildren) {
-              const employeesLink = hrChildren.querySelector('a[href="./employees.html"]');
-              if (employeesLink) employeesLink.style.display = 'none';
+            // 2. Hide Admin section completely
+            const adminTrigger = document.getElementById('admin-trigger');
+            if (adminTrigger) {
+              const parent = adminTrigger.closest('.sidebar-nav-item');
+              if (parent) parent.style.display = 'none';
             }
 
-            // Rename Applicants to My Candidates and update href
+            // 3. Under HR, hide all links EXCEPT Leaves
+            const hrChildren = document.getElementById('hr-children');
+            if (hrChildren) {
+              const hrLinks = hrChildren.querySelectorAll('a');
+              hrLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href && !href.includes('leaves.html')) {
+                  link.style.display = 'none';
+                }
+              });
+            }
+
+            // 4. Hide Standalone Settings links
+            document.querySelectorAll('a[href="./settings.html"]').forEach(el => {
+              el.style.display = 'none';
+            });
+
+            // 5. Rename Applicants link under Recruitment to My Candidates
             const recruitmentChildren = document.getElementById('recruitment-children');
             if (recruitmentChildren) {
               const applicantsLink = recruitmentChildren.querySelector('a[href="./applicants.html"]');

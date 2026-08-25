@@ -26,10 +26,16 @@
       const path = window.location.pathname.toLowerCase();
       const forbidden = [
         'employees.html',
+        'attendance.html',
+        'tasks.html',
+        'performance.html',
         'invoices.html',
         'salary.html',
         'reports.html',
         'projections.html',
+        'settings.html',
+        'calendar.html',
+        'roles.html',
         'assignment.html'
       ];
       const isForbidden = forbidden.some(p => path.includes(p));

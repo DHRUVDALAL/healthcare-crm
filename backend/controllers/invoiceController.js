@@ -235,7 +235,7 @@ async function create(req, res) {
 
     if (!payload.invoice_number) {
       const year = new Date().getFullYear();
-      const rand = Math.floor(1000 + Math.random() * 9000);
+      const rand = Date.now().toString().slice(-6) + Math.floor(100 + Math.random() * 900);
       payload.invoice_number = `INV-${year}-${rand}`;
     }
 

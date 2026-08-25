@@ -101,7 +101,11 @@
 
       let actionsHTML = '';
       if (isAdmin && lv.leave_status === 'pending') {
-        actionsHTML = `<button class="btn btn-outline btn-sm" data-action="update-status" data-id="${lv.id}" data-status="${lv.leave_status}">Review Request</button>`;
+        actionsHTML = `
+          <button class="btn btn-sm success" data-action="quick-approve" data-id="${lv.id}" style="margin-right:4px; background:#10b981; color:#fff; border:none; padding:4px 8px; border-radius:4px; font-weight:600; cursor:pointer;">Approve</button>
+          <button class="btn btn-sm danger" data-action="quick-reject" data-id="${lv.id}" style="margin-right:4px; background:#ef4444; color:#fff; border:none; padding:4px 8px; border-radius:4px; font-weight:600; cursor:pointer;">Reject</button>
+          <button class="btn btn-outline btn-sm" data-action="update-status" data-id="${lv.id}" data-status="${lv.leave_status}">Review</button>
+        `;
       } else if (!isAdmin) {
         actionsHTML = `<span class="small-muted">No actions</span>`;
       } else {
@@ -174,7 +178,7 @@
     els.closeStatusBtn.addEventListener('click', closeStatusModal);
     els.cancelStatusBtn.addEventListener('click', closeStatusModal);
 
-    els.tableBody.addEventListener('click', (e) => {
+    els.tableBody.addEventListener('click', async (e) => {
       const btn = e.target.closest('button[data-action]');
       if (!btn) return;
 
@@ -183,6 +187,19 @@
       
       if (action === 'update-status') {
         openStatusModal(id, btn.dataset.status);
+      } else if (action === 'quick-approve' || action === 'quick-reject') {
+        const newStatus = action === 'quick-approve' ? 'approved' : 'rejected';
+        try {
+          setStatus('Updating...', 'warn');
+          await window.CRM_API.request(`/api/leaves/status/${id}`, {
+            method: 'PATCH',
+            body: JSON.stringify({ status: newStatus })
+          });
+          await loadLeaves();
+        } catch (err) {
+          setStatus('Update failed', 'warn');
+          alert(err.message || 'Failed to update leave status');
+        }
       }
     });
 
