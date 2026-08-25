@@ -100,16 +100,23 @@ async function getBalance(req, res) {
 
     // Query approved leaves for the employee in the current year
     const [rows] = await pool.query(
-      `SELECT leave_type, SUM(DATEDIFF(end_date, start_date) + 1) as days_taken
+      `SELECT leave_type, start_date, end_date
        FROM leaves
-       WHERE employee_id = ? AND leave_status = 'approved' AND YEAR(start_date) = ?
-       GROUP BY leave_type`,
-      [employeeId, currentYear]
+       WHERE employee_id = ? AND leave_status = 'approved'`,
+      [employeeId]
     );
 
     const takenMap = {};
     for (const r of rows) {
-      takenMap[r.leave_type] = Number(r.days_taken || 0);
+      const year = r.start_date ? new Date(r.start_date).getFullYear() : currentYear;
+      if (year === currentYear) {
+        let days = 1;
+        if (r.start_date && r.end_date) {
+          const diffMs = new Date(r.end_date) - new Date(r.start_date);
+          days = Math.max(1, Math.round(diffMs / (1000 * 60 * 60 * 24)) + 1);
+        }
+        takenMap[r.leave_type] = (takenMap[r.leave_type] || 0) + days;
+      }
     }
 
     const limits = {

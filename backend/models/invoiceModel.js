@@ -86,7 +86,7 @@ class InvoiceModel {
         invoice_date, due_date, payment_status, payment_method, transaction_reference, notes, created_by
       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
-        payload.invoice_number, Number(payload.hospital_id), Number(payload.applicant_id), Number(payload.job_id),
+        payload.invoice_number, Number(payload.hospital_id), Number(payload.applicant_id), payload.job_id ? Number(payload.job_id) : null,
         candidateSalary, feePct, feeType, fixedFee,
         subtotal, gstPct, gstAmt, totalAmt,
         payload.invoice_date, payload.due_date, payload.payment_status || 'pending',

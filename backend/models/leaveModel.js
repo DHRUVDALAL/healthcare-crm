@@ -8,7 +8,7 @@ class LeaveModel {
     let q = `
       SELECT l.*, u.full_name as employee_name, u.email as employee_email
       FROM leaves l
-      JOIN users u ON l.employee_id = u.id
+      LEFT JOIN users u ON l.employee_id = u.id
       WHERE 1=1
     `;
     const params = [];
@@ -23,7 +23,7 @@ class LeaveModel {
       params.push(status);
     }
 
-    if (employeeId) {
+    if (employeeId !== undefined && employeeId !== null && employeeId !== '') {
       q += ` AND l.employee_id = ?`;
       params.push(employeeId);
     }
@@ -39,7 +39,7 @@ class LeaveModel {
     const [rows] = await pool.query(
       `SELECT l.*, u.full_name as employee_name
        FROM leaves l
-       JOIN users u ON l.employee_id = u.id
+       LEFT JOIN users u ON l.employee_id = u.id
        WHERE l.id = ?`,
       [id]
     );
@@ -48,13 +48,15 @@ class LeaveModel {
 
   static async create(payload, conn = null) {
     const pool = conn || getPool();
+    const empId = payload.employee_id || payload.user_id;
+    const lStatus = payload.leave_status || payload.status || 'pending';
     const [res] = await pool.query(
       `INSERT INTO leaves (
-        employee_id, leave_type, start_date, end_date, reason, leave_status
-      ) VALUES (?, ?, ?, ?, ?, ?)`,
+        employee_id, user_id, leave_type, start_date, end_date, reason, leave_status, status
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
       [
-        payload.employee_id, payload.leave_type, payload.start_date,
-        payload.end_date, payload.reason, payload.leave_status || 'pending'
+        empId, empId, payload.leave_type, payload.start_date,
+        payload.end_date, payload.reason, lStatus, lStatus
       ]
     );
     return { id: res.insertId };
@@ -63,8 +65,8 @@ class LeaveModel {
   static async updateStatus(id, status, remarks = null, conn = null) {
     const pool = conn || getPool();
     await pool.query(
-      `UPDATE leaves SET leave_status = ?, admin_remarks = ? WHERE id = ?`,
-      [status, remarks || '', id]
+      `UPDATE leaves SET leave_status = ?, status = ?, admin_remarks = ? WHERE id = ?`,
+      [status, status, remarks || '', id]
     );
   }
 

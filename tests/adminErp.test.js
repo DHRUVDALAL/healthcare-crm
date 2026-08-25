@@ -105,8 +105,10 @@ async function run(log = console.log) {
     log('✓ Daily Attendance & Monthly Summary endpoints verified');
 
     // ─── 7. Module 5: Leave Management ─────────────────────────────────────────
-    log('\n[MODULE 5] Leave Management');
     const leavePending = await apiRequest('/api/leaves?status=pending', {}, adminToken);
+    if (leavePending.status !== 200) {
+      console.error('LEAVE PENDING FAILED BODY:', leavePending.body);
+    }
     assert.strictEqual(leavePending.status, 200, 'Pending leaves list API should return 200');
 
     const leaveBalance = await apiRequest('/api/leaves/balance', {}, adminToken);

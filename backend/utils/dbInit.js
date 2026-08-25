@@ -424,21 +424,27 @@ async function initDb() {
   await pool.query(`
     CREATE TABLE IF NOT EXISTS leaves (
       id INT AUTO_INCREMENT PRIMARY KEY,
-      user_id INT NOT NULL,
-      leave_type ENUM('sick','casual','paid','emergency','earned','wfh','compensatory') NOT NULL DEFAULT 'casual',
+      employee_id INT NULL,
+      user_id INT NULL,
+      leave_type VARCHAR(60) NOT NULL DEFAULT 'Sick Leave',
       start_date DATE NOT NULL,
       end_date DATE NOT NULL,
       total_days INT NOT NULL DEFAULT 1,
       reason TEXT NOT NULL,
-      status ENUM('pending','approved','rejected') NOT NULL DEFAULT 'pending',
+      leave_status VARCHAR(50) NOT NULL DEFAULT 'pending',
+      status VARCHAR(50) NOT NULL DEFAULT 'pending',
+      admin_remarks TEXT NULL,
       approved_by INT NULL,
-      created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-      KEY idx_leaves_user (user_id),
-      KEY idx_leaves_status (status),
-      CONSTRAINT fk_leaves_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+      created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
   `);
+
+  await pool.query(`ALTER TABLE leaves ADD COLUMN employee_id INT NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE leaves ADD COLUMN user_id INT NULL`).catch(() => {});
+  await pool.query(`ALTER TABLE leaves ADD COLUMN total_days INT NOT NULL DEFAULT 1`).catch(() => {});
+  await pool.query(`ALTER TABLE leaves ADD COLUMN leave_status VARCHAR(50) NOT NULL DEFAULT 'pending'`).catch(() => {});
+  await pool.query(`ALTER TABLE leaves ADD COLUMN status VARCHAR(50) NOT NULL DEFAULT 'pending'`).catch(() => {});
+  await pool.query(`ALTER TABLE leaves ADD COLUMN admin_remarks TEXT NULL`).catch(() => {});
 
   // Create salary_records table
   await pool.query(`

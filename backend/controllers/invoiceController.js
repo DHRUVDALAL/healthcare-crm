@@ -229,8 +229,8 @@ async function downloadInvoice(req, res) {
 async function create(req, res) {
   try {
     const payload = req.body || {};
-    if (!payload.hospital_id || !payload.applicant_id || !payload.job_id) {
-      return fail(res, 400, 'Hospital, candidate, and job are required');
+    if (!payload.hospital_id || !payload.applicant_id) {
+      return fail(res, 400, 'Hospital and candidate are required');
     }
 
     if (!payload.invoice_number) {

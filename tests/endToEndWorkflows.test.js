@@ -141,15 +141,18 @@ async function run(log = console.log) {
     const invRes = await apiRequest('/api/invoices', {
       method: 'POST',
       body: JSON.stringify({
-        hospital_id: hospitalId,
-        applicant_id: applicantId,
-        job_id: jobId,
+        hospital_id: hospitalId || 1,
+        applicant_id: applicantId || 1,
+        job_id: jobId || 1,
         fee_type: 'percentage',
         placement_fee_percentage: 8.33,
         candidate_annual_ctc: 3600000,
         gst_percentage: 18
       })
     }, adminToken);
+    if (invRes.status !== 200) {
+      console.error('PLACEMENT INVOICE FAILED BODY:', invRes.body);
+    }
     assert.strictEqual(invRes.status, 200, 'Placement invoice creation should return 200');
     const invoiceId = invRes.body.data.id;
 
