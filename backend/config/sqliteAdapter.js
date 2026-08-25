@@ -7,6 +7,7 @@ const path = require('path');
 class SqlitePool {
   constructor(dbPath) {
     this.dbPath = dbPath || path.join(__dirname, '..', 'crm.sqlite');
+    this.saveTimer = null;
     this.ready = this.init();
   }
 
@@ -22,13 +23,17 @@ class SqlitePool {
   }
 
   save() {
-    try {
-      if (this.db) {
-        const data = this.db.export();
-        const buffer = Buffer.from(data);
-        fs.writeFileSync(this.dbPath, buffer);
-      }
-    } catch (e) {}
+    if (this.saveTimer) return;
+    this.saveTimer = setTimeout(() => {
+      this.saveTimer = null;
+      try {
+        if (this.db) {
+          const data = this.db.export();
+          const buffer = Buffer.from(data);
+          fs.writeFile(this.dbPath, buffer, () => {});
+        }
+      } catch (e) {}
+    }, 2000);
   }
 
   transformSql(sql) {
