@@ -91,9 +91,9 @@ async function start() {
     await UserModel.ensureAdminSeed();
     await runAdminErpMigrations();
 
-    app.listen(PORT, () => {
+    app.listen(PORT, '0.0.0.0', () => {
       // eslint-disable-next-line no-console
-      console.log(`Backend running on http://localhost:${PORT}`);
+      console.log(`Backend running on http://0.0.0.0:${PORT} (Access locally on http://localhost:${PORT})`);
     });
   } catch (err) {
     // eslint-disable-next-line no-console
